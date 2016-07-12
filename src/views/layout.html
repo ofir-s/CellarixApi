@@ -1,0 +1,33 @@
+<a href="" ng-click="tryGoBack()" class="back-button">חזור</a>
+<div data-ui-view></div>
+<!--CART-->
+<div class="overlay" ng-click="toggleCart()"></div>
+<div class="cart">
+    <a href="" ng-click="toggleCart()" title="סל קניות" class="basket-button"><span class="items-count">{{dealData.data.cart.items.length > 99 ? '99+' : dealData.data.cart.items.length}}</span></a>
+    <div class="right-side">
+        <div class="cart-head">
+            <div class="basket"><span class="items-count">{{dealData.data.cart.items.length > 99 ? '99+' : dealData.data.cart.items.length}}</span></div>
+            <h3>סל קניות</h3>
+        </div>
+        <a class="close-button" title="סגור" href="" ng-click="toggleCart()"></a>
+    </div>
+    <div class="left-side"><div class="wrapper">
+        <div ng-repeat="item in dealData.data.cart.items">
+            <div class="item-row">
+                <div class="description"> {{item.itemName}}
+                    <!--<span class="price shekel"></span>--></div>
+                <div class="quantity">{{item.itemAmount}}</div>
+                <div class="sum shekel">{{item.itemTotalPriceIncludeVat}}</div>
+            </div>
+        </div>
+        <div class="total">
+            <div class="description">סה"כ</div>
+            <div class="sum shekel">{{dealData.data.cart.cartTotal.totalAmountToBeCharge}}</div>
+        </div>
+    </div></div>
+</div>
+<footer ng-class='footer.classes'>
+    <img class="cellarix-logo" src="../../img/logo.png" alt="Cellarix">
+    <p>בכל שאלה, אנו פה חייגו 9100*, מכל טלפון סלולרי</p>
+    <a href="tel:*9100" class="call-button"></a>
+</footer>

@@ -1,0 +1,206 @@
+// GENERAL
+
+a {
+  text-decoration: underline;
+}
+
+h3 {
+  font-weight: 600;
+  color: $gray-dark;
+  margin-bottom: $global-padding;
+}
+
+h2 {
+  color: $gray-dark;
+  font-weight: 400;
+}
+
+
+//BODY
+
+body {
+
+  @include min-size (320px,100%);
+  direction: rtl;
+  background-image: url(#{$base-url}img/bg_sm.png);
+  background-image: url(#{$base-url}svg/bg_sm.svg);
+  background-repeat: repeat;
+}
+
+html, body,
+body > div[data-ui-view] {
+  overflow-x: hidden;
+  height: 100%;
+}
+body > div[data-ui-view] {
+  position: relative;
+  overflow-y: auto;
+}
+
+
+
+// MODAL
+
+.modal-backdrop {
+
+}
+
+.modal {
+  @include size(100%);
+  overflow: hidden;
+}
+
+.modal-dialog  {
+  margin: 10vh auto 10vh auto;
+  @include size(80vw,80vh);
+  max-width: 700px;
+  overflow: hidden;  
+  @include pads(
+    $top:  $global-padding * 1.5,
+    $right: $global-padding * 1.5,
+    $bottom: $global-padding * 1.5,
+    $left: $global-padding
+  );
+  box-shadow: 0 0 20px 10px rgba(0,0,0,0.1);
+  background-color: white;
+  
+  @include media($smallish-screen) {
+    @include pads(
+      $top:  $global-padding,
+      $right: $global-padding,
+      $bottom: $global-padding,
+      $left: $global-padding / 2
+    );    
+  }
+}
+
+.modal-content {
+  border: 0;
+  background-color: transparent;
+  overflow-y: auto;
+  overflow-x: hidden;
+  @include size(100%);
+  padding-left: $global-padding;
+  
+  
+  .close-button {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    background-color: $brand-primary;
+    @include size($global-padding);
+    border-radius: 50%;
+    background-size: 11px get-icn-height(icn_x,11px);
+    box-shadow: 0 0 0 10px white;
+  }
+  
+}
+
+
+
+// COMMON ELEMENTS & LOCAL MIXINS
+
+.pull-right {
+  display: block;
+  float: right;
+  margin-top: 5px;
+  @extend %green-link;
+  font-weight: 600;  
+
+  @include media("<400px") {
+    font-size: $font-size-base;
+    //font-weight: 400; 
+    float: none;
+    text-align: left;     
+  }
+}
+
+
+.shadow-box {
+  box-shadow: 0 0 20px 10px rgba(0,0,0,0.1);
+}
+
+.high-five {
+  font-size: $font-size-lg * 2;
+  text-transform: uppercase;
+  color: $brand-primary;
+}
+
+.cap-cha,
+.global-error,
+.card-error-message {  
+  padding: 8px ($global-padding/2);
+  @include margins($top:$global-padding,$bottom:$global-padding)
+}
+
+.global-error,
+.card-error-message {
+  background-color: #fbebeb;  
+  color: #EE1C25;
+  font-size: 0.9 * $font-size-base;
+  font-weight: 600;
+  text-align: center;
+}
+
+.items-count {
+    @include circle(15px,white);
+    display: inline-block;
+    color: $gray-dark;
+    font-size: 9px;
+    line-height: 15px;
+    font-weight: 600;
+    vertical-align: middle;
+    text-align: center;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.5);
+}
+
+.shekel:before {
+  @include pseudo(inline);
+  content:"\20AA";
+  margin-right: 4px;
+}
+
+%green-link {
+  color: $brand-primary;
+  text-decoration: underline;
+  &:visited,&:link {
+    color: $brand-primary;
+  }
+  &:hover {
+    color: darken($brand-primary, 15%)
+  }
+  &:active {
+    text-decoration: none;
+    color: darken($brand-primary, 20%)
+  }
+  &[disabled], &[disabled]:active
+  &:disabled, &:disabled:active {
+    text-decoration: none;
+    cursor: $cursor-disabled;
+    color: $gray-light;
+  }
+
+}
+
+%white-link {
+  color: white;
+  text-decoration: underline;
+  &:visited,&:link {
+    color: white;
+  }
+  &:hover {
+    color: darken(white, 15%)
+  }
+  &:active {
+    text-decoration: none;
+    color: darken(white, 20%)
+  }
+
+  &[disabled], &[disabled]:active
+  &:disabled, &:disabled:active {
+    text-decoration: none;
+    cursor: $cursor-disabled;
+    color: $gray-light;
+  }  
+  
+}

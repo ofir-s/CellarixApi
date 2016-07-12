@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="he" class="no-js" dir="rtl">
+
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Cellarix</title>
+    <meta name="description" content="Cellarix">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <link rel="stylesheet" href="css/stylesheets/style.css" type="text/css" />
+
+    
+    <!--polyfills for hmlt5 for ie < 9-->
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rem/1.3.4/js/rem.min.js"></script>
+    <!-- <![endif] -->
+</head>
+
+<body data-ng-app="cellarixPaymentApp">
+  
+  <div data-ui-view>
+    
+    <main class="index">
+      <section class="index-section">
+        <i class="fa fa-spinner"></i>
+        <img class="cellarix-logo" src="../../img/logo.png" alt="Cellarix">        
+        <h3> מיד תעבור לאפליקציה... </h3>
+      </section>
+    </main>
+    
+    
+<!--
+    
+        <ul>
+          <li><a ui-sref="main.registration.step1" class="pull-left">Registration </a></li>
+          <li><a ui-sref="main.login" class="pull-left"> Login </a></li>
+          <li><a ui-sref="main.guestPayment.step2" class="pull-left"> Guest Payment </a></li>
+      </ul>
+      <a ui-sref="main.payments.step1" class="pull-left"> Normal payments </a> 
+-->
+
+  </div>
+  
+  
+  
+  
+    <script src="js/build/app.js"></script>
+    <script src="js/build/templates.js"></script>
+</body>
+
+</html>

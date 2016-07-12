@@ -1,0 +1,44 @@
+// Bootstrap overrides
+//
+// Copy variables from `_variables.scss` to this file to override default values
+// without modifying source files.
+
+$enable-flex:               false;
+$enable-rounded:            false;
+$enable-shadows:            false;
+$enable-gradients:          false;
+$enable-transitions:        false;
+$enable-hover-media-query:  false;
+$enable-grid-classes:       false;
+$enable-print-styles:       false;
+
+//$brand-primary:             #8cca3e;
+$brand-primary:             #89c83b;
+$gray-dark:                 #363636;
+$gray:                      #767676;
+$gray-light:                #D7D7D7; // #ebeaea;
+$brand-primary-darker: darken($brand-primary,15%);
+
+$font-family-base:        'Open Sans Hebrew', serif;
+
+$font-size-root: 16px;
+$font-size-sm:   .75rem;
+$font-size-xs:   .66rem;
+
+$font-size-h4: 1.3rem;
+
+$headings-color: $brand-primary;
+//$headings-color: inherit;
+
+$headings-font-weight:   600;
+
+$grid-gutter-width: $global-padding;
+
+$tooltip-color: #fff;
+$tooltip-bg: $brand-primary-darker;
+
+$font-size-small: $font-size-sm;
+$border-radius-base: 5px;
+.tooltip-inner  {
+  padding: 12px 10px;
+}

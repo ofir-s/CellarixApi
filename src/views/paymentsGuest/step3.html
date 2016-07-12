@@ -1,0 +1,41 @@
+<section class="step-3">
+    <h2>רק לוודא,</h2>
+    <p> בתאריך {{ getDate() | MomentFilter: 'DD.M.YYYY' }} יעברו מחשבון <strong>{{guestPayment.createAccountGuestData.cellphoneNumber}}</strong></p>
+    <div ng-form="guestPaymentFormStepThree">
+        <div class="shadow-box">
+            <div class="arrow-thing"></div>
+            <div class="price" ng-class='getDigitsClass()'>
+                <span class="shekel sum">{{ getFloor(dealData.data.cart.cartTotal.totalAmountToBeCharge) }} </span><span class="cnts">.{{(dealData.data.cart.cartTotal.totalAmountToBeCharge % 1).toFixed(2).toString().replace('0.', '')}} </span>
+            </div>
+            <!--cell phone number-->
+            <fieldset class="phone form-group">
+                <label>לחשבון של</label>
+                <!--             <input id="" type="tel" class="form-control ng-empty" ng-required="true" ng-blur="validatePhoneNumber(commitRegistration.data.cellphoneNumber)" ng-pattern="/^(05)[0-9]( |-)?\d{7}$/" name="cellphoneNumber" ng-model="commitRegistration.data.cellphoneNumber" ng-disabled="phoneNumberIsBeingValidated" />
+            <i class="fa fa-pencil"></i>
+            <div class="messages">
+                <div class="error-messages" ng-messages="registrationFormStepOne.cellphoneNumber.$error" ng-show="registrationFormStepOne.cellphoneNumber.$touched">
+                    <span ng-message="pattern">אנא הזן מספר בן 10 תווים ללא מקף</span>
+                    <span ng-message="required">שדה חובה</span>
+                </div>
+            </div> -->
+                <strong> {{dealData.data.supplierName}} </strong>
+            </fieldset>
+        </div>
+        <!--comments/message-->
+        <fieldset class="form-group message">
+            <textarea  tabindex="1" id="remarksForSeller" name="remarksForSeller" ng-model="guestPayment.remarksForSeller" ng-maxlength="250" limit-to type="text" class="form-control"></textarea>
+            <label for="remarksForSeller">הערות להזמנה</label>
+            <div class="messages">
+                <div class="error-messages" ng-messages="guestPaymentFormStepThree.remarksForSeller.$error" ng-show="guestPaymentFormStepThree.remarksForSeller.$touched">
+                    <span ng-message="maxlength">לא ניתן להכניס יותר מ250 תווים</span>
+                </div>
+            </div>
+        </fieldset>
+        <cellarix-errors-directive />
+        <a class="pull-right" href="" ng-click="goToRedirectUrl()">לביטול ועריכה</a>
+        <!--button-->
+        <fieldset class="form-button form-group">
+            <button enable-kb-click tabindex="2" type="button" ng-disabled="guestPaymentFormStepThree.$invalid || chargeRequestInProgress" ng-click="goToFinalStep()"><i ng-show="chargeRequestInProgress" class="fa fa-spinner fa-spin fa-fw"></i>לאישור וביצוע</button>
+        </fieldset>
+    </div>
+</section>

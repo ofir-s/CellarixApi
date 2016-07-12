@@ -1,0 +1,281 @@
+.cart {
+  
+  @include clearfix();
+  
+  width: 100%;  
+  @include position(absolute, 0px null null -100%);
+  
+  @if $nice-things {
+    @include transition (all 0.4s ease-in-out);  
+  }  
+  
+  display: table;
+  z-index: 9999;
+  min-height: 180px;
+  
+  .left-side, .right-side {
+    height: 100%;
+    position: relative;
+    display: table-cell;
+  }
+  
+  .right-side {
+    
+    width: 32%;
+    //float: right;
+    background-color: #8cc24a;
+    
+    &:after {
+      @include pseudo;
+      @include size(100%,100%);
+      @include position(absolute, 0 0 null null);
+      background-color: #8cc24a;
+      background: linear-gradient(to right, #8cc24a, $brand-primary);
+      z-index: 1100;      
+    }
+    
+    .cart-head {
+      
+      @include centerer(false,true);
+      width: 100%;
+      padding: $global-padding;
+      z-index: 1150;
+      text-align: center;      
+      
+    }
+    
+    h3 {
+      color: white;
+      font-weight: 400;
+      text-shadow: 0 -1px 0 lighten($gray-dark,5%);
+      display: inline-block;
+      font-size: $font-size-h3 * 1.1;
+      line-height: 1;
+      vertical-align: top;
+      margin: 0;
+      padding: 0;
+    }
+
+    .basket {
+      @include size(36px,28px);        
+      @include bg-image("#{$base-url}svg/cart-shadow.svg", left bottom, auto);
+      position: relative;
+      display: inline-block;
+      vertical-align: bottom;
+      margin-left: $global-padding;
+
+      .items-count {
+        @include position(absolute, 0px 0px null null);
+      }
+    }    
+    
+  }
+  
+  .left-side {
+    position: relative;
+    width: 68%;
+
+    @include make-container();
+    @include pads(
+      $top:  $global-padding,
+      $right: $global-padding * 1.5,
+      $bottom: $global-padding * 1.5,
+      $left: $global-padding * 1.5
+    );    
+    
+    @include media($small-screen) {
+      @include pads(
+        $right: $global-padding,
+        $bottom: $global-padding * 1.5,
+        $left: $global-padding
+      ); 
+    }
+    
+    &:before {
+      @include pseudo;
+      @include size(100%,100%);
+      @include position(absolute,0 0 null null);
+      background-color: #79ae36;  
+      @include bg-image("#{$base-url}svg/bg_sm-cart.svg", right bottom, auto, repeat);   
+    }           
+    
+    @include media($wide-screen) {
+      .wrapper {
+        max-width: 700px;
+        @include margins($center:true);
+        width: calc(100% - #{$global-padding*2});
+        //@include centerer(false,true);
+
+      }      
+    }
+    
+    .item-row, .total {
+      @include make-row();
+      color: white;
+      line-height: 1;
+    }    
+    
+    .item-row {
+
+      @include pads(
+        $top: $global-padding / 2 + 3,
+        $right: $global-padding / 2,
+        $bottom: $global-padding / 2 + 3,
+        $left: $global-padding / 2
+      ); 
+      
+      .description {
+        @include make-col(8);
+        text-align: right;
+      }
+      
+      .quantity {
+        @include make-col(1); 
+        text-align: center;      
+      }
+      
+      .sum {
+        @include make-col(3);
+        text-align: left;
+        font-weight: 600;
+      }
+      
+      @include media($small-screen) {
+        .description {
+          @include make-col(7);          
+        }
+        .quantity {
+          @include make-col(1);           
+        }
+
+        .sum {
+          @include make-col(4);
+        }
+      }
+      
+    }
+    
+    .total {
+            
+      @include fix-weird-webkit-shit;      
+      border-top: 1px solid rgba(255,255,255,0.5);
+      @include pads(
+        $top: $global-padding,
+        $right: $global-padding / 2,
+        $bottom: 0,
+        $left: $global-padding / 2
+      ); 
+      margin-top: ($global-padding / 2) - 3;
+                
+      .description {
+        @include make-col(4);
+        text-align: right;
+        font-weight: 600;        
+      }
+      
+      .sum {
+        @include make-col(8);
+        text-align: left;
+        font-weight: 600;
+        font-size: $font-size-base * 1.25;       
+      }
+      
+    }
+    
+  }
+  
+  @include media($is-mobile) {
+    
+    display: block;
+    
+    .right-side {
+      
+      width: 100%;
+      height: auto;      
+      display: block;
+      float: none;
+      
+      .cart-head {
+        @include centerer-clear();
+      }
+      
+      .basket, h3 {
+        display: block;
+        text-align: center;
+        @include margins($center:true);
+      }
+      
+      h3 {
+        font-size: $font-size-h3 * 0.9;
+        text-shadow: 0 -1px 0 lighten($gray-dark,15%);
+      }
+      
+      .basket {
+        @include size(34px,26px);
+        margin-bottom: 5px;
+
+        .items-count {
+          @include position(absolute, 0px 0px null null);
+        }
+      }        
+
+    }
+
+    .left-side {
+
+      width: 100%;
+      display: block;
+      float: none;
+      &:before {
+        opacity: 0.93;
+      }            
+      
+    }   
+    
+  }
+  
+  
+  // cart open, overlay to disable clicks, blur underlaying page
+  
+  @at-root {
+    
+    .overlay {          
+      background-color: white(0);         
+      @include transition(background-color 1500ms linear);
+      @include position(fixed,0 null null 0);    
+      @include size(100vw,100vh);
+      z-index: 9990; 
+      pointer-events: none;
+    }
+    
+    main,section,header,footer {
+      @if $nice-things {
+        @include transition(filter 500ms linear);
+      }  
+    }    
+
+    .cart-open .cart, .cart.open {
+      left: 0;
+      box-shadow: -5px 3px 50px 2px rgba(0,0,0,0.35);
+    }
+    
+    body.cart-open {
+      
+      background-image: url(#{$base-url}svg/bg_sm-blur.svg);
+      
+      main, section, header, footer {
+        filter: blur(1px);
+      }
+      
+      .overlay {
+        background-color: white(0.6);
+        pointer-events: auto;
+      }
+      
+    }
+     
+    
+  } // at-root
+  
+}
+

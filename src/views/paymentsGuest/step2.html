@@ -1,0 +1,14 @@
+<section class="step-2">
+    <div ng-form name="guestPaymentFormStepTwo" novalidate>
+        <h4>תשלום בכרטיס אשראי</h4>
+        <p> <a tabindex="0" ui-sref="main.registration.step1({userData: guestPayment.createAccountGuestData, creditCardData: guestPayment.addCreditCardData})">עם Cellarix</a> היית כבר עם כוס קפה ביד...
+        </p>
+        <fieldset ng-disabled="createCreditCardForGuestRequestInProgress || passedSteps.data[2]">
+            <cellarix-cc-directive add-credit-card-data="guestPayment.addCreditCardData" form-name="guestPaymentFormStepTwo" tab-index="1" />
+            <cc-name-field-directive cc-name-field="guestPayment.createAccountGuestData.creditCardName" form-name="guestPaymentFormStepTwo" tab-index="2" />
+            <tz-field-directive form-name="guestPaymentFormStepTwo" id-field="guestPayment.addCreditCardData.creditCardOwnerIdNumber" init-field="{{guestPayment.createAccountGuestData.idNumber}}" tab-index="3" />
+        </fieldset>
+        <cellarix-errors-directive />
+        <button enable-kb-click tabindex="4" type="button" ng-disabled="createCreditCardForGuestRequestInProgress || passedSteps.data[2]" ng-click="createCreditCardForGuest()"><i ng-show="createCreditCardForGuestRequestInProgress" class="fa fa-spinner fa-spin fa-fw"></i>לאישור וביצוע רכישה</button>
+    </div>
+</section>

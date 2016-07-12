@@ -1,0 +1,84 @@
+<section class="step-1 wide">
+    <div ng-form name="paymentsFormStepOne">
+        <div class="block closed" data-ng-show="!showCreditCardBlock && paymentMethods.creditCards.length > 0">
+          <div class="block-head card" onclick="javascript:$(this).closest( '.block').toggleClass('closed').toggleClass('open');">
+                <h4 class="description"> {{paymentMethods.creditCards.length}} {{ paymentMethods.creditCards.length  === 1 ? 'כרטיס אשראי' : 'כרטיסי אשארי' }} </h4>
+                <div class="col-wrap">
+                    <div class="sum shekel">{{totalCreditCards || 0 | currency : '' : 2 }}</div>
+                    <button enable-kb-click tabindex="1" class="block-expand-button"></button>
+                </div>
+            </div>
+            <div class="block-content">
+                <div class="block-row card" data-ng-repeat="creditCard in paymentMethods.creditCards">
+                    <h5 class="description"> כרטיס אשראי <strong>{{creditCard.creditCardNumber}}</strong> </h5>
+                    <fieldset class="edit-sum">
+                        <button enable-kb-click tabindex="1" class="minus" ng-click='substractFromPayment("creditCards", creditCard.paymentMethodId); payByCreditCards(creditCard.paymentMethodId);'>-</button>
+                        <input tabindex="1" type="number" data-ng-model="totalPaymentMethods.creditCards[creditCard.paymentMethodId]" ng-init="totalPaymentMethods.creditCards[creditCard.paymentMethodId] = (creditCard.defaultAmountToCharge || 0); payByCreditCards(creditCard.paymentMethodId)" data-ng-change="payByCreditCards(creditCard.paymentMethodId)"><i class="shekel"></i>
+                        <button enable-kb-click tabindex="1" class="plus" ng-click='addToPayment("creditCards", creditCard.paymentMethodId); payByCreditCards(creditCard.paymentMethodId);'>+</button>
+                    </fieldset>
+                </div>
+                <!-- <p>{{creditCardsMessage}}</p> -->
+            </div>
+        </div>
+        <div class="block closed" data-ng-show="!showCouponsBlock && paymentMethods.coupons.length > 0">
+          <div class="block-head tag" onclick="javascript:$(this).closest( '.block').toggleClass('closed').toggleClass('open');">
+                <h4 class="description">  {{paymentMethods.coupons.length}} {{ paymentMethods.coupons.length  === 1 ? 'קופון' : 'קופונים' }} <p> יתרה: <strong class="sum shekel" >{{getCouponsBalance() || 0 | currency : '' : 2 }}</strong></p> </h4>
+                <div class="col-wrap">
+                    <div class="sum shekel">{{totalCoupons || 0 | currency : '' : 2 }}</div>
+                    <button enable-kb-click tabindex="1" class="block-expand-button"></button>
+                </div>
+            </div>
+            <div class="block-content">
+                <div class="block-row tag" data-ng-repeat="coupon in paymentMethods.coupons" ng-show="coupon.currentBalance > 0 || totalPaymentMethods.coupons[coupon.paymentMethodId] > 0" ng-disabled="!coupon.isActive">
+                    <h5 class="description"> בתוקף עד <strong> {{coupon.couponExpiryDate | date : "dd/MM/yyyy"}}</strong> 
+                        <p> יתרה: <strong class="sum shekel" >{{coupon.currentBalance - totalPaymentMethods.coupons[coupon.paymentMethodId] || 0 | currency : '' : 2 }}</strong></p></h5>
+                    <fieldset class="edit-sum">
+                        <button enable-kb-click tabindex="1" class="minus" ng-click='substractFromPayment("coupons", coupon.paymentMethodId); payByCoupons(coupon.paymentMethodId, coupon.currentBalance);'>-</button>
+                        <input tabindex="1" type="number" data-ng-model="totalPaymentMethods.coupons[coupon.paymentMethodId]" ng-init="totalPaymentMethods.coupons[coupon.paymentMethodId] = (coupon.defaultAmountToCharge || 0); payByCoupons(coupon.paymentMethodId, coupon.currentBalance)" data-ng-change="payByCoupons(coupon.paymentMethodId, coupon.currentBalance)"><i class="shekel"></i>
+                        <button enable-kb-click tabindex="1" class="plus" ng-click='addToPayment("coupons", coupon.paymentMethodId); payByCoupons(coupon.paymentMethodId, coupon.currentBalance);'>+</button>
+                    </fieldset>
+                </div>
+                <!-- <p>{{couponsMessage}}</p> -->
+            </div>
+        </div>
+        <div class="block closed" data-ng-show="!showCellarixCashBlock && paymentMethods.cellarixCash && (paymentMethods.cellarixCash.balance > 0 || totalPaymentMethods.cellarixCash[paymentMethods.cellarixCash.paymentMethodId] > 0)">
+          <div class="block-head wallet" onclick="javascript:$(this).closest( '.block').toggleClass('closed').toggleClass('open');">
+                <h4 class="description">ארנק סלאריקס<p> יתרה: <strong class="sum shekel" >{{paymentMethods.cellarixCash.balance - totalPaymentMethods.cellarixCash[paymentMethods.cellarixCash.paymentMethodId] || 0 | currency : '' : 2 }}</strong></p></h4>
+                <div class="col-wrap">
+                    <div class="sum shekel">{{totalCellarixCash || 0 | currency : '' : 2 }}</div>
+                    <button enable-kb-click tabindex="1" class="block-expand-button"></button>
+                </div>
+            </div>
+            <div class="block-content">
+                <div class="block-row tag">
+                    <h5 class="description">
+                         יתרה: <strong class="sum shekel" >{{paymentMethods.cellarixCash.balance - totalPaymentMethods.cellarixCash[paymentMethods.cellarixCash.paymentMethodId] || 0 | currency : '' : 2 }}</strong></h5>
+                    <fieldset class="edit-sum">
+                        <button enable-kb-click tabindex="1" class="minus" ng-click='substractFromPayment("cellarixCash", paymentMethods.cellarixCash.paymentMethodId); payByCellarixCash(paymentMethods.cellarixCash.paymentMethodId);'>-</button>
+                        <input tabindex="1" type="number" ng-init="totalPaymentMethods.cellarixCash[paymentMethods.cellarixCash.paymentMethodId] = (paymentMethods.cellarixCash.defaultAmountToCharge || 0); payByCellarixCash(paymentMethods.cellarixCash.paymentMethodId);" data-ng-model="totalPaymentMethods.cellarixCash[paymentMethods.cellarixCash.paymentMethodId]" ng-change="payByCellarixCash(paymentMethods.cellarixCash.paymentMethodId)"><i class="shekel"></i>
+                        <button enable-kb-click tabindex="1" class="plus" ng-click='addToPayment("cellarixCash", paymentMethods.cellarixCash.paymentMethodId); payByCellarixCash(paymentMethods.cellarixCash.paymentMethodId);'>+</button>
+                    </fieldset>
+                </div>
+                <!-- <p>{{cellarixCashMessage}}</p> -->
+            </div>
+        </div>
+        <cellarix-errors-directive />
+        <div class="payment-summary">
+            <div class="summary-row total">
+                <h4 class="description">סה"כ לתשלום</h4>
+                <div class="sum shekel">{{requiredTotalAmount || 0 | currency : '' : 2 }}</div>
+            </div>
+            <div class="summary-row">
+                <h5 class="description">בחרת עד כה</h5>
+                <div class="sum shekel">{{currentTotalAmount || 0 | currency : '' : 2 }}</div>
+            </div>
+            <div class="summary-row">
+                <h5 class="description">נשאר לך לבחור עוד</h5>
+                <div class="sum shekel">{{(requiredTotalAmount - currentTotalAmount) || 0 | currency : '' : 2 }}</div>
+            </div>
+        </div>
+        <fieldset class="form-button form-group">
+            <button enable-kb-click tabindex="2" type="button" ng-disabled="!sumIsFullyPaid.value" ui-sref="main.payments.step2">לאישור</button>
+        </fieldset>
+    </div>
+</section>

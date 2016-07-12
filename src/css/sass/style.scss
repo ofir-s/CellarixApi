@@ -1,0 +1,75 @@
+@charset "UTF-8";
+
+
+// VARIABLES
+
+$dir-rtl: true;
+
+$global-padding: 20px;
+$content-width: 400px;
+$content-width-wide: 700px;
+$front-content-width: 300px;
+
+$is-desktop: ">=768px";
+$wide-screen: ">1020px";
+$super-wide-screen: ">1400px";
+
+$is-mobile: "<768px";
+$smallish-screen: "<510px";
+$small-screen: "<440px";
+$super-small-screen: "<350px";
+
+$small-height-screen: "height<750px";
+$super-small-height-screen: "height<550px";
+
+$nice-things: true;
+//$base-url: "../../";
+$base-url: "/";
+$call-button-color: green; // gray
+$fancy-final: false;
+
+$payment-final-has-tel-input: false;
+
+
+// FONTS
+
+@import "fonts";
+
+
+// BOOTSTRAP 4
+@import "bootstrap-custom";
+@import "bootstrap4a2/bootstrap";
+
+
+// MIXINS
+
+$breakpoints: $grid-breakpoints;
+@import "mixins/include-media";
+@import "mixins/functions";
+@import "mixins/easings";
+@import "mixins/mixins";
+$output-bourbon-deprecation-warnings: false;
+@import "bourbon427/bourbon";
+
+
+// VENDOR
+
+@import "bootstrap3-tooltip";
+@import "sweetalert-custom";
+@import "sweetalert";
+@import "animate-custom";
+@import "loading-bar-custom";
+
+
+// PARTIALS
+
+@import "icons"; // SVG icons
+@import "expandable-blocks"; // accordion
+@import "body"; // + COMMON CLASSES
+@import "header";
+@import "main";
+@import "main-steps";
+@import "footer";
+@import "form";
+@import "buttons";
+@import "cart";

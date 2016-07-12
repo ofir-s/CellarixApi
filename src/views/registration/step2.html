@@ -1,0 +1,64 @@
+<section class="step-2">
+  <div ng-form name="registrationFormStepTwo">
+    <div ng-disabled="commitRegistrationRequestInProgress.value || passedSteps.data[3]">
+        <!--password-->
+        <fieldset class="form-group password">
+            <input id="password" type="password" ng-model="commitRegistration.data.password" limit-to ng-maxlength="50" class="form-control" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/" name="password" ng-required="true" tabindex="1" peek-to-password>
+            <i class="fa fa-info-circle" uib-tooltip="דרישות לסיסמא:
+          לפחות אות אחת אנגלית
+          לפחות ספרה אחת
+          מינימום 7 תווים
+          יש להשתמש בתווים באנגלית בלבד ללא אותיות בעברית וללא סימנים"></i>
+            <label for="password"><i class="asterisk">*</i> סיסמא </label>
+            <div class="messages">
+                <div class="error-messages" ng-messages="registrationFormStepTwo.password.$error" ng-show="registrationFormStepTwo.password.$touched">
+                    <span ng-message="required">שדה חובה</span>
+                    <span ng-message="maxlength">לא ניתן להכניס יותר מ50 תווים</span>
+                    <span ng-message="pattern">אנא הזן סיסמא הכוללת: לפחות אות אחת באנגלית, לפחות ספרה אחת, הסיסמא צריכה להיות בעלת מינימום 7 תווים, יש להשתמש רק בספרות ואותיות אנגליות. ללא תווים בעברית וללא סימנים.</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="form-group password">
+            <input id="confirmPassword" tabindex="2" type="password" class="form-control" ng-model="confirmPassword" name="confirmPassword" match="commitRegistration.data.password" peek-to-password>
+            <label for="confirmPassword"><i class="asterisk">*</i> שוב סיסמא
+                <span>(ושוב, רק לוודא)</span></label>
+            <div class="messages">
+                <div class="error-messages" ng-messages="registrationFormStepTwo.confirmPassword.$error" ng-show="registrationFormStepTwo.confirmPassword.$touched">
+                    <span ng-message="match">זה רק אנחנו או שהסיסמאות לא תואמות...</span>
+                </div>
+            </div>
+        </fieldset>
+        <!--password end      -->
+        <!-- security question -->
+        <fieldset class="form-group">
+            <input id="securityQuestion" tabindex="3" type="text" class="form-control" ng-minlength="2" limit-to ng-maxlength="250" ng-model="commitRegistration.data.securityQuestion" ng-required="true" name="securityQuestion">
+            <label for="securityQuestion"><i class="asterisk">*</i> שאלת אבטחה
+                <span>(הרחוב בו גדלת, שם נעורים...)</span></label>
+            <div class="messages">
+                <div class="error-messages" ng-messages="registrationFormStepTwo.securityQuestion.$error" ng-show="registrationFormStepTwo.securityQuestion.$touched">
+                    <span ng-message="required">שדה חובה</span>
+                    <span ng-message="minlength">חייב להיות לפחות 2 תווים</span>
+                    <span ng-message="maxlength">לא ניתן להכניס יותר מ250 תווים</span>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="form-group">
+            <input id="securityAnswer" type="text" tabindex="4" class="form-control" ng-minlength="2" limit-to ng-maxlength="250" ng-model="commitRegistration.data.securityAnswer" ng-required="true" name="securityAnswer">
+            <label for="securityAnswer"><i class="asterisk">*</i> תשובה </label>
+            <div class="messages">
+                <div class="error-messages" ng-messages="registrationFormStepTwo.securityAnswer.$error" ng-show="registrationFormStepTwo.securityAnswer.$touched">
+                    <span ng-message="required">שדה חובה</span>
+                    <span ng-message="minlength">חייב להיות לפחות 2 תווים</span>
+                    <span ng-message="maxlength">לא ניתן להכניס יותר מ250 תווים</span>
+                </div>
+            </div>
+        </fieldset>
+        <!-- security question end -->
+        <email-field-directive form-name="registrationFormStepTwo" email-field="commitRegistration.data.email" tab-index="5" />
+        <cellarix-errors-directive />
+        <fieldset class="form-group">
+            <button enable-kb-click tabindex="6" type="button" ng-disabled="registrationFormStepTwo.$invalid" ng-click="goToThirdStep()">לשלב הבא</button>
+        </fieldset>
+    </div>
+  </div>
+</section>

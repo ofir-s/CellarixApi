@@ -1,0 +1,588 @@
+// vars
+@charset 'UTF-8';
+$dir-rtl: true;
+
+// obsolete but used in older projects
+
+// Opacity
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  // IE8 filter
+  $opacity-ie: ($opacity * 100);
+  filter: alpha(opacity=$opacity-ie);
+}
+
+// FROM BOOTSTRAP
+
+// Sizing shortcuts
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin clearfix($after:true,$before:null) {
+  @if $after {
+    &::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+  @if $before {
+    &::before {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+}
+
+// CSS image replacement
+@mixin text-hide() {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+%text-hide {
+  @include text-hide();
+}
+
+
+
+// FROM BOURBON
+
+@mixin position($position: relative, $coordinates: null null null null) {
+  @if type-of($position) == list {
+    $coordinates: $position;
+    $position: relative;
+  }
+
+  $coordinates: unpack($coordinates);
+
+  $offsets: (
+    top:    nth($coordinates, 1),
+    right:  nth($coordinates, 2),
+    bottom: nth($coordinates, 3),
+    left:   nth($coordinates, 4)
+  );
+
+  position: $position;
+
+  @each $offset, $value in $offsets {
+    @if is-length($value) {
+      #{$offset}: $value;
+    }
+  }
+}
+
+
+
+// MIXINS
+
+
+// vertical align / inline-block, vertical-align: middle
+
+@mixin vertical-align() {
+  &:before {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+  }
+
+  & > * {
+    vertical-align: middle;
+    display: inline-block;
+  }
+}
+
+@mixin translate($x: 0, $y: 50%){
+  -ms-transform: translate($x, $y);
+  -moz-transform: translate($x, $y);
+  -webkit-transform: translate($x, $y);
+  transform: translate($x, $y);
+}
+
+@mixin better-vertical-align($position: absolute){
+  display: inline-block;
+  position: $position;
+  top: 50%;
+  @include translate(0, -50%);
+}
+
+
+
+
+// use: #{$a-tags} {}, #{$a-tags-hover} {}
+$a-tags: 'a, a:active, a:hover, a:visited';
+$a-tags-hover: 'a:active, a:hover';
+
+@mixin truncateText($overflow: ellipsis){
+  //overflow: hidden;
+  white-space: nowrap;
+  text-overflow: $overflow; // values are: clip, ellipsis, or a string
+}
+
+
+//@mixin cover-background($img-uri, $background-top:"center", $background-left:"center", $background-attachment:"fixed") {
+//  background: url($img-uri) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment);
+//  background-size: cover;
+//}
+
+@mixin bg-img-cover($file: null, $position: center center, $attach: fixed) {
+    @if ($file) {
+        background-image: url($file);
+    }
+    background-attachment: $attach;
+    background-position: $position;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-origin: border-box;
+}
+
+@mixin bg-image($imgpath: null, $position: center center, $size: contain, $repeat: no-repeat) {
+  @if ($imgpath) {
+    background-image: url($imgpath);
+  }
+  background-position: $position;
+  background-repeat: $repeat;
+  background-size: $size;
+}
+
+
+@mixin max-size($width, $height: auto) {
+  max-width: $width;
+  max-height: $height;
+}
+
+@mixin min-size($width, $height: auto) {
+  min-width: $width;
+  min-height: $height;
+}
+
+@mixin reset-element($position:false,$size:false,$pseudo:false,$pads-dims:true,$color:true,$bg:true) {
+  @if ($size) {
+    @include size(auto,auto);
+  }
+  @if ($pads-dims) {
+    margin: 0;
+    padding: 0;
+  }
+  border: 0;
+  list-style: none;
+  box-shadow: none;
+  @if ($pseudo) {
+    &:before,&:after {
+      content:"";
+      background: none;
+      display: none;
+    }
+  }
+  @if ($position) {
+    @include position(relative, auto auto auto auto);
+  }
+  @if ($color) {
+    color: inherit;
+  } 
+  @if ($bg) {
+    background: none;
+  }   
+}
+
+@mixin pseudo($display: block) {
+  content: "";
+  display: $display;
+}
+
+@mixin no-text-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+%no-text-select {
+  @include no-text-select();
+}
+
+@mixin coverer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+//@mixin centerer {
+//  position: absolute;
+//  top: 50%;
+//  left: 50%;
+//  transform: translate(-50%, -50%);
+//}
+
+@mixin centerer($horizontal: true, $vertical: true) {
+  position: absolute;
+  @if ($horizontal and $vertical) {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } @else if ($horizontal) {
+    left: 50%;
+    transform: translate(-50%, 0);
+  } @else if ($vertical) {
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  
+
+}
+
+@mixin centerer-clear($horiz:true,$vertic:true) {
+  position: relative;
+  @if $horiz {
+    left: auto; right: auto;
+  }
+  @if $vertic {
+    top: auto; bottom: auto;
+  }    
+  transform: none;
+}
+
+@mixin circle($width, $color) {
+  width: $width;
+  height: $width;
+  background-color: $color;
+  -webkit-border-radius: $width/2;
+     -moz-border-radius: $width/2;
+          border-radius: $width/2;
+}
+
+
+
+// mixin assumes you'll be nesting an element with the class of content inside your initial block
+// then apply the mixin to initial block
+// @include aspect-ratio(16,9);  < will make the block always be 16x9 ratio
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+  > .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+/// Returns the opposite direction of each direction in a list
+/// @param {List} $directions - List of initial directions
+/// @return {List} - List of opposite directions
+@function opposite-direction($directions) {
+  $opposite-directions: ();
+  $direction-map: (
+    'top':    'bottom',
+    'right':  'left',
+    'bottom': 'top',
+    'left':   'right',
+    'center': 'center',
+    'ltr':    'rtl',
+    'rtl':    'ltr'
+  );
+  @each $direction in $directions {
+    $direction: to-lower-case($direction);
+    @if map-has-key($direction-map, $direction) {
+      $opposite-directions: append($opposite-directions, unquote(map-get($direction-map, $direction)));
+    } @else {
+      @warn "No opposite direction can be found for `#{$direction}`. Direction omitted.";
+    }
+  }
+  @return $opposite-directions;
+}
+
+
+@mixin triangle-topright($width:50px,$color:black) {
+  width: 0;
+  height: 0;
+  border-top: $width solid $color;
+  border-left: $width solid transparent;
+}
+
+@mixin corner-radius($top-left: null, $top-right: null, $bottom-left: null, $bottom-right: null) {
+  border-top-left-radius: $top-left;
+  border-top-right-radius: $top-right;
+  border-bottom-left-radius: $bottom-left;
+  border-bottom-right-radius: $bottom-right;
+}
+
+@mixin margins($top: null, $right: null, $bottom: null, $left: null, $center:null) {
+  
+  @if $center {
+    margin-right: auto;
+    margin-left: auto;
+  } @else {
+    margin-right: $right;
+    margin-left: $left;
+  }  
+  margin-top: $top;  
+  margin-bottom: $bottom;
+  
+}
+
+@mixin pads($top: null, $right: null, $bottom: null, $left: null) {
+  padding-top: $top;
+  padding-right: $right;
+  padding-bottom: $bottom;
+  padding-left: $left;
+}
+
+@mixin borders($width:1px, $top: null, $right: null, $bottom: null, $left: null, $style:solid) {  
+  @if $top {
+    border-top: $width $style $top;  
+  }
+  @if $right {
+    border-right: $width $style $right;  
+  }
+  @if $bottom {
+    border-bottom: $width $style $bottom;  
+  }
+  @if $left {
+    border-left: $width $style $left;  
+  }    
+}
+
+
+@mixin slide-border($color:null,$width:1px,$polarity:'',$include-on-state:true,$elem-width:500px) {
+  background-image: linear-gradient(to top, $color, $color $width, transparent $width, transparent 100%);
+  background-position: #{$polarity}#{$elem-width} 0;
+  background-clip: border-box;
+  @include transition (background-position 0.35s ease-in-out);
+
+  @if $include-on-state {
+    &:focus {
+      background-position: 0;
+    }
+  }
+
+  //&:after {
+  //  @include pseudo();
+  //  height: $width;
+  //  background-color: $color;
+  //  bottom: 0; left:0;
+  //  width: 0;
+  //}
+  //&:focus:after {
+  //  width: 100%;
+  //}
+
+}
+@mixin slide-border-on() {
+    background-position: 0;
+}
+
+@mixin button-normalize() {
+  @include no-text-select;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:active, &:disabled, &:focus {
+    outline: 0;
+  }
+
+  &:disabled, &:disabled:active {
+    cursor: $cursor-disabled;
+  }
+}
+
+
+@mixin fix-weird-webkit-shit($transforms:true){
+  transform: translateZ(0);
+  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
+  //-webkit-transform: translateZ(0) scale(1.0, 1.0);  
+  //overflow:auto;  
+}
+
+
+
+// apply on Input[type=checkbox], label element should be next sibling
+%nice-button-checkbox {
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20290.22%20222.44%22%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M290.22%2043.43a17.36%2017.36%200%200%201-5.24%2012.69l-135.56%20135.6-25.46%2025.46a18.08%2018.08%200%200%201-25.46%200l-25.48-25.46-67.78-67.78a18.08%2018.08%200%200%201%200-25.46l25.45-25.47a17.36%2017.36%200%200%201%2012.74-5.24%2017.33%2017.33%200%200%201%2012.73%205.24l55.05%2055.24%20122.83-123a18.08%2018.08%200%200%201%2025.46%200l25.46%2025.46a17.34%2017.34%200%200%201%205.26%2012.72z%22%2F%3E%3C%2Fsvg%3E');
+}
+@mixin nice-checkbox($color:black, $size:15px, $border:1px, $border-color:$color,$margin:0 0 0 10px) {
+  display: none;
+
+  & + label {
+    display: inline-block;
+    zoom: 1;
+    @include size($size);
+    border: $border solid $border-color;
+    margin: $margin;
+    padding: 0;
+    vertical-align: middle;
+    @include no-text-select();
+    cursor: pointer;
+    background-size: 100%;
+    @include transition (all 0.2s ease-in-out);
+  }
+  &:disabled + label, &:disabled:active + label {
+    cursor: $cursor-disabled;
+  }
+  &:checked + label {
+
+    @extend %nice-button-checkbox;
+    border: $border solid $color;
+    background-color: $color;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+  }
+
+}
+
+
+// MISC GLOBAL CSS
+
+input[type=email], input[type=number] {
+  @if $dir-rtl {
+    direction: ltr;
+    text-align: right;
+  }
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  //-webkit-transition: all 0.2s ease;
+  //-moz-transition:    all 0.2s ease;
+  //-ms-transition:     all 0.2s ease;
+  //-o-transition:      all 0.2s ease;
+
+  background-repeat: no-repeat;
+
+}
+
+input:focus, input:valid {
+  box-shadow: none;
+  outline: none;
+}
+
+img {
+
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+li:last-child, ul:last-child {
+    margin-bottom: 0;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+// CLASSES TO EXTEND
+
+%greyscale {
+    -webkit-filter: grayscale(1);
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    filter: gray;
+    filter: grayscale(100%);
+    filter: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='grayscale'><feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0'/></filter></svg>#grayscale");
+}
+
+%visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+%bg-pos-center-cover {
+  background-position: center;
+  background-size: cover;
+}
+%bg-pos-center-contain {
+  background-position: center;
+  background-size: contain;  
+}
+
+%hide-text {
+    //@include text-hide();
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+%link-no-text-dec {
+  text-decoration: none;
+  &:link, &:visited, &:hover, &:active {
+    text-decoration: none;
+  }  
+}
+
+
+
+
+
+
+
+// LOADING SPINNERS
+// more here: 
+// http://projects.lukehaas.me/css-loaders/
+// http://www.codicode.com/art/full_css_spinners.aspx
+// http://tobiasahlin.com/spinkit/
+// http://samherbert.net/svg-loaders/
+
+
+
+@mixin spin-zoomer-pulser($size:16px,$color:#333,$border:false,$border-width:2px) {
+  @include size($size);
+  @if $border {
+    border: $border-width solid $color;
+  } @else {
+    background-color: $color;
+  }  
+  border-radius: 100%;  
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-scaleout {
+  0% { -webkit-transform: scale(0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-scaleout {
+  0% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}

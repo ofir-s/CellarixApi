@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="he" class="no-js" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Cellarix</title>
+    <meta name="description" content="Cellarix">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <link rel="stylesheet" href="css/stylesheets/style.css" type="text/css" />
+    <link rel="stylesheet" href="css/stylesheets/vendor/loading-bar.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" type="text/css" />
+    <!--polyfills for hmlt5 for ie < 9-->
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="app/js/rem.min.js"></script>
+    <!-- <![endif] -->
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+</head>
+
+<body data-ng-app="cellarixPaymentApp" class="login-page">
+
+<!--
+  login page and pages with similar layout:
+  header, main, footer must have class "front"
+
+  
+-->     
+
+  <header class="front">
+
+   <h1>Cellarix</h1>
+
+   <a href="" class="back-button">חזור</a>
+
+  </header>
+
+
+  <main class="front">
+    
+    <section>
+
+      <div class="intro-message">
+        <p>שלך נרצה לאמת תנוני</p>
+        <h3>כבר מסיימים</h3>        
+      </div>
+      
+      <div ng-form>
+        
+        <fieldset class="form-group">
+            <input id="" type="text" class="form-control ng-empty">
+            <label for="securityQuestion"> שאלת אבטחה</label>
+<!--
+            <div class="messages">
+                <div class="error-messages">
+                </div>
+            </div>
+-->
+        </fieldset>
+      
+        <fieldset class="form-group">
+            <input id="" type="text" class="form-control ng-empty">
+            <label for="securityQuestion"> שאלת אבטחה</label>
+<!--
+            <div class="messages">
+                <div class="error-messages">
+                </div>
+            </div>
+-->
+        </fieldset>
+      
+        <!--captcha-->
+        <div class="cap-cha" style="display:none;"></div>
+        
+        <!--error-->
+        <div class="global-error ng-binding" role="alert" ng-show="errors.visible &amp;&amp; errors.message"> אנא מלא את כל השדות המסומנים ב *, אנא מלא תאריך לידה </div>
+      
+        <fieldset class="form-button form-group">
+          <button>לשלב הבא</button>
+        </fieldset>
+        
+        <a href="">המסומנים</a>
+
+        <fieldset class="form-button form-group">
+          <button>אנא מלא תאריך</button>
+        </fieldset>
+      
+      </div>  
+        
+    </section>
+
+  </main>
+
+
+
+  <footer class="front">
+
+   <img class="cellarix-logo" src="../../img/logo.png" alt="Cellarix">
+   <p>בכל שאלה, אנו פה חייגו 9100*, מכל טלפון סלולרי</p>
+   <a href="" class="call-button"></a>
+
+  </footer>
+
+    
+ <!--CART-->
+  <div class="cart">
+    <a href="javascript:$('.cart').toggleClass('open');$('body').toggleClass('cart-open');" class="basket-button"><span class="items-count">5</span></a>
+    
+    <div class="right-side">
+      
+      <div class="cart-head">
+        <div class="basket"><span class="items-count">99</span></div>
+        <h3>אנו פה חייגו</h3>        
+      </div>
+      
+      <a class="close-button" href="javascript:$('.cart').toggleClass('open');$('body').toggleClass('cart-open');"></a>    
+    </div>
+    
+    <div class="left-side">
+      
+      <div class="item-row">        
+        <div class="description"> אנו פה חייג <span class="price shekel">300</span></div>
+        <div class="quantity">2</div>        
+        <div class="sum shekel">300</div>      
+      </div>
+
+      <div class="item-row">        
+        <div class="description"> אנו פה חייג <span class="price shekel">300</span></div>
+        <div class="quantity">2</div>        
+        <div class="sum shekel">300</div>      
+      </div>
+      
+      <div class="item-row">        
+        <div class="description"> אנו פה חייג <span class="price shekel">300</span></div>
+        <div class="quantity">2</div>        
+        <div class="sum shekel">300</div>      
+      </div>      
+      
+      <div class="total">        
+        <div class="description">מספר</div>
+        <div class="sum shekel">800</div>      
+      </div>
+      
+    </div>
+
+  </div>
+    
+    
+</body>
+
+</html>

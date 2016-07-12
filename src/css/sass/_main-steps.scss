@@ -1,0 +1,808 @@
+
+
+// MAIN > STEPS  (PAGES)
+
+
+// LOGIN
+
+.front section {
+  
+  .intro-message,
+  .global-error,
+  .cap-cha,
+  fieldset {
+    @include margins($left: ($global-padding * 1.5), $right: ($global-padding * 1.5));
+  }
+  
+  .intro-message {
+    margin-bottom: $global-padding / 2;
+    text-align: right;
+    
+    h3, p {
+      margin: 0;      
+    }
+    p {
+      font-weight: 600;
+      color: $gray;
+      font-size: $font-size-base * 1.1;
+    }
+    h3 {
+      color: darken($brand-primary,5%);
+    }
+  }
+ 
+  .form-button {
+    
+    @include margins($top: ($global-padding + 5px), $bottom: $global-padding);
+    
+    @include media($small-screen) {
+      margin-bottom: $global-padding / 2;
+    }      
+    
+    button {
+      display: inline-block;
+    }
+    
+    &+ a {
+      font-weight: 600;
+      font-size: $font-size-base * 0.85;
+      display: block;
+      @extend %green-link;
+      @include margins($bottom:$global-padding);
+    }
+    
+    &:last-child {
+      margin: 0;
+      padding: $global-padding * 1.5;
+      background-color: rgba(255,255,255,0.2);
+     
+      background-image: url(#{$base-url}img/bg_sm.png);
+      background-image: url(#{$base-url}svg/bg_sm.svg);
+      background-repeat: repeat; 
+      
+      // border-top: 1px solid lighten($gray-light,12%);
+      box-shadow: 0px 0px 50px 0 rgba(0,0,0,0.05);
+      
+    } 
+    
+  } // login section
+  
+  
+}
+
+
+// SUCCESS
+
+main.success {
+  
+  .success-top-text {
+    
+    display: none;
+    color: white;
+    font-weight: 600;
+    font-size: $font-size-sm * 1.2;
+    line-height: 1;
+    @include pads($top:$global-padding,$right:$global-padding/2);
+    text-shadow: 0 0 10px black;
+    
+    span:first-child {
+      
+      &:before,&:after {
+        @include pseudo(inline-block);
+      }
+      
+      &:before {        
+        @include size(12px,get-icn-height(icn_chkpnt,12px));
+        @extend .icn_chkpnt-wht;
+        @extend %bg-pos-center-contain;
+        margin-left: 5px;
+      }
+      &:after {
+        content: "|";
+        @include margins($right:5px,$left:5px);
+      }
+      
+    }
+    
+    @include media($smallish-screen) {
+      display: block;
+      text-align: center;
+      line-height: 1.4;
+      margin-bottom: 0;
+      span {
+        display: block;
+      }
+      span:first-child:after {
+        display: none;
+      }
+    }      
+    
+  }
+  
+//}
+//
+//.front.success section {
+  
+  .success-message, .success-button {
+    text-align: right;
+  }
+  
+  .success-message {
+    background-color: rgba(255,255,255,0.95);
+    padding: $global-padding;
+    padding-bottom: $global-padding * 3;
+    
+    h3 {
+      color: darken($brand-primary,5%);
+    }
+
+    p {
+      color: $gray-dark;      
+      font-size: $font-size-lg;
+      line-height: 1.4;
+      
+      .shekel:before {
+        margin-right: 3px;
+      }
+    }
+    
+  }
+  
+  .success-button {
+    
+    width: 340px;
+    background-color: rgba(65,65,65,0.95);
+    @include position(relative,-($global-padding*1.5) ($global-padding*1.5) null null);
+    padding: ($global-padding * 1.5) - 5px;
+       
+    
+    &:before {
+      @include pseudo;
+      @include position(absolute,0 null null 0);
+      @include size(100%);
+      background-image: url(#{$base-url}img/bg_sm.png);
+      background-image: url(#{$base-url}svg/bg_sm.svg);
+      background-repeat: repeat;
+      opacity: 0.07;
+    }
+
+    
+    h4, p, a {
+      color: white;
+      line-height: 1.4;
+    }
+    h4 {
+      margin-bottom: 2px;
+      line-height: 1.1;
+    }
+    
+    .form-button {
+      margin-bottom: $global-padding / 2 + 5px;
+      margin-top: $global-padding - 5px;
+      text-align: center;
+      background: none;
+    }
+    
+    .form-button + a {
+      @extend %white-link;
+      text-align: center;      
+      margin-bottom: 0;
+      font-weight: 400;      
+    }
+    
+    h4 + .form-button:last-child {
+      @include margins($top:0,$bottom:0);
+    }
+        
+  }
+  
+  @include media($smallish-screen) {
+    .success-message {
+      text-align: center;      
+      padding-bottom: $global-padding * 2 + 5px;
+      h3 {
+        margin-bottom: $global-padding - 5px;
+      }
+      p {
+        font-size: $font-size-base * 1.1;
+      }
+    }
+    .success-button {
+      right: auto;
+      width: auto;
+      text-align: center;      
+      h4 {
+        font-size: $font-size-h3 * 0.9;
+      }
+    }    
+    h4 + .form-button:last-child {
+      @include pads($top: $global-padding,$bottom: $global-padding);
+    }
+  }      
+  
+}
+
+
+
+
+
+// REGISTRATION
+
+.registration  {
+    
+// STEP 1
+
+  .step-1 {
+    &:after {
+      @extend .icn_usr-wht;
+      background-size: 11px get-icn-height(icn_usr,11px);
+      background-position: center;
+    }
+  }
+
+// STEP 2
+
+  .step-2 {
+    &:after {
+      @extend .icn_lock-wht;
+      background-size: 10px get-icn-height(icn_lock,10px);
+      background-position: center;
+    }
+  }
+
+
+// STEP 3
+
+  .step-3 {
+
+    padding: 0;
+
+    &:after {
+      @extend .icn_plane-wht;
+      background-size: 14px get-icn-height(icn_plane,14px);
+      background-position: center;
+      top: 2px;
+      right: 1px;
+    }
+
+    .verify-message {
+      
+      @include pads(
+        $top: $global-padding * 2,
+        $right: $global-padding * 1.5,
+        $bottom: $global-padding * 1.5,
+        $left: $global-padding * 1.5
+      );       
+      
+      @include media($super-small-screen) {
+        @include pads(
+          $top: $global-padding * 1.5,
+          $right: $global-padding,
+          $bottom: $global-padding,
+          $left: $global-padding
+        );          
+      }
+      
+    }
+
+    .verify-form {      
+      @include pads(
+        $top: $global-padding,
+        $right: $global-padding * 1.5,
+        $bottom: $global-padding * 1.5,
+        $left: $global-padding * 1.5
+      );    
+      @include media($super-small-screen) {
+        @include pads(
+          $top: $global-padding,
+          $right: $global-padding,
+          $bottom: $global-padding,
+          $left: $global-padding
+          );          
+      }      
+      background-image: linear-gradient(to bottom, lighten($gray-light,13%), white 13%);
+      border-top: 1px solid lighten($gray-light,11%);
+    }
+
+    h4 {
+      margin-bottom: 0px;
+    }
+    
+
+  }
+
+
+// STEP 4
+
+  .step-4 {
+
+    &:after {
+      @extend .icn_card3-wht;
+      background-size: 15px get-icn-height(icn_card3,15px);
+      background-position: center;
+      right: 1px;
+      top: 0px;
+    }
+
+  }
+
+// FINAL
+
+  .step-final {
+    
+      text-align: center;
+      padding: 0;
+    
+      p {
+        font-size: $font-size-lg;
+      }    
+
+      @include media($super-small-screen) {        
+        p {
+          font-size: $font-size-base;
+        }                
+      }       
+    
+  }
+  
+  @if $fancy-final {
+
+    .step-final {
+
+      &:after {
+        @extend .icn_chk-wht;
+        background-size: 14px get-icn-height(icn_chk,14px);
+        background-position: center;
+        right: 1px;
+        top: 1px;
+      }
+
+      min-height: 400px;
+      margin-top: $global-padding;      
+      position: relative;      
+
+      .final-message {
+        @include centerer(false,true);
+        width: 100%;
+        @include pads(
+          $top: $global-padding * 2,
+          $right: $global-padding * 1.5,
+          $bottom: $global-padding * 2,
+          $left: $global-padding * 1.5
+        );              
+      }
+
+      @include media($small-height-screen) {
+        min-height: auto;
+        .final-message {
+          @include centerer-clear();
+        }
+
+      }
+
+    }   
+    
+  } @else {
+    
+    .step-final {
+      
+      @include section-no-box($reset-pads-dims:false);
+//      box-shadow: 0 0 50px 30px rgba(255,255,255,1);
+      background-color: rgba(255,255,255,0.5);
+      box-shadow: 0 0 50px 30px rgba(255,255,255,0.8);    
+
+      @include media($small-height-screen) {
+        @include margins($top: ($global-padding * 2), $bottom: $global-padding);
+      }
+            
+      @include media($small-screen) {
+        width: auto;
+      }              
+      
+    }
+    
+  } // step-final
+  
+ 
+    
+    
+} // end REGISTRATION
+
+
+// GUEST PAYMENT
+
+.guest-payments  {
+
+    
+// STEP 1
+
+  .step-1 {
+    &:after {
+      @extend .icn_usr-wht;
+      background-size: 11px get-icn-height(icn_usr,11px);
+      background-position: center;
+    }
+  }    
+    
+// STEP 2
+  @at-root {
+
+
+    .guest-payments .step-2, .payments .step-1 {
+      &:after {
+        @extend .icn_coins-wht;
+        background-size: 15px get-icn-height(icn_coins,15px);
+        background-position: center;
+        right: 1px;
+      }
+
+      .payment-summary {
+        
+        .shekel:before {
+          font-size: 80%;
+          @include media("<600px") {  
+            margin-right:2px;
+          }
+        }        
+        
+        .sum, .description {
+          display: inline-block;
+        }
+
+        .sum {        
+          font-weight: 600;        
+          text-align: left;
+          color: $brand-primary-darker;
+          width: 25%;
+          vertical-align: middle;
+        }
+
+        .description {
+          color: $gray-dark;
+          line-height: 1;
+          font-weight: 400;
+          text-align: right;
+          margin: 0;        
+          width: 25%;
+          vertical-align: middle;
+        }
+
+        @include media($is-mobile) {        
+          .sum {
+            width: 30%;        
+          }
+          .description {
+            width: 35%;        
+          }
+        }      
+        @include media($smallish-screen) {        
+//          .sum {
+//            width: 30%;
+//          }
+//          .description {
+//            width: 50%;        
+//          }
+//        }            
+//        @include media($small-screen) {        
+          .sum {
+            width: 40%;
+            float: left;
+          }
+          .description {
+            width: 57%;
+            float: right;
+          }
+        }
+
+        .form-button {
+          margin-top: $global-padding * 1.5;
+        }
+
+        .summary-row {        
+
+          @include media($smallish-screen) {
+            @include clearfix();
+          }
+
+          line-height: 1;
+          text-align: left;
+
+          &.total, &:last-child {
+            border-bottom: 1px solid $gray-light;          
+          }        
+
+          &.total {
+            @include pads(
+              $top: $global-padding,
+              $right: $global-padding/2,
+              $bottom: $global-padding,
+              $left: $global-padding/2
+            );
+            @include media($small-screen) {
+              padding-top: $global-padding / 2;
+            }
+            margin-bottom: $global-padding;
+
+            .sum {
+              font-size: $font-size-lg;
+              color: $gray-dark;                       
+            }
+
+          }
+
+          &:not(.total){
+
+            @include pads(
+              $top: 0,
+              $right: $global-padding / 2,
+              $bottom: $global-padding * 1.5 / 2,
+              $left: $global-padding / 2
+            );                
+
+            &:last-child {
+              padding-bottom: $global-padding;
+            }
+
+            .sum {
+              font-size: $font-size-base * 1.2;
+            }
+            .description {
+              font-size: $font-size-base;
+            }
+          }
+
+          &:only-child {
+            border: 0;
+            margin: 0;
+            padding-bottom: 5px;
+          }        
+
+          @include media($smallish-screen) {                 
+            &.total, &:not(.total) {
+              .sum, .description {
+                font-size: $font-size-lg * 0.9;                
+              }                            
+              .shekel:before {
+                //font-size: $font-size-base;              
+              }
+            }
+          }   
+          @include media($small-screen) {
+            &.total, &:not(.total) {
+              .sum, .description {
+                font-size: $font-size-base;
+              }
+              .shekel:before {
+                //font-size: $font-size-base * 0.9;              
+              }
+            }
+          }          
+
+
+        }      
+
+      }
+
+    }   
+
+  }  // at root
+
+//STEP 3 (also same styles apply to Regular Payments Step 2)
+  
+  @at-root {
+    
+    .payments .step-2,
+    .guest-payments .step-3 {
+
+      @include section-no-box();
+
+        @include size($content-width, auto);
+        @include margins($center:true);
+
+        @include media($small-screen) {
+          width: auto;
+        }
+
+      text-align: center;
+      box-shadow: 0 0 50px 30px rgba(255,255,255,1);  
+      //background-color: rgba(255,255,255,0.65);
+      //box-shadow: 0 0 50px 30px rgba(255,255,255,0.8);  
+
+      h2 {
+        margin-bottom: 0;
+      }
+
+      p {
+        font-size: $font-size-lg;
+        font-weight: 400;
+        margin-bottom: $global-padding * 1.5;
+      }
+
+      .shadow-box {
+        @include pads(
+          $top: $global-padding + 5px,
+          $right: $global-padding * 2,
+          $bottom: $global-padding / 2,
+          $left: $global-padding * 2
+        );        
+        position: relative;
+        margin-bottom: $global-padding;
+        background-color: white;
+      }
+
+      .arrow-thing {
+        @include size(30px,75px);
+        @include position(absolute,78px 30px);
+        @include borders(1px,$gray-light,$gray-light,$gray-light);
+        &:after {
+          @include pseudo;
+          @include position(absolute,null null 5px -2px);
+          @icnlude size(15px,15px);        
+          font-family: $font-family-sans-serif;
+          direction: ltr;
+          content:"\00ab";
+          color: $brand-primary;
+          font-size: 35px;
+          font-weight: 200;
+          line-height: 0;                
+        }
+      }
+
+      .price {
+        color: $brand-primary-darker;                            
+        letter-spacing: 0px;
+        font-weight: 200;
+        text-align: center;     
+        white-space: nowrap;
+        direction: ltr;      
+        height: 95px;
+        position: relative;
+        display: inline-block;      
+        margin: 0 auto 0 auto;
+        padding: 0 5px;
+        line-height: 90%;
+
+        &.digits-5 {
+          font-size: 80px;  
+        }
+
+        &.digits-4 {
+          font-size: 95px;        
+
+        }          
+        &.digits-3 {
+          font-size: 100px;        
+        }   
+
+        .sum, .cnts, .cur {
+          display: inline-block;
+          background-color: white;  
+        }
+
+        .sum:before {
+          font-size: 30px;
+          font-weight: 600;
+          margin-left: -30px;
+          line-height: 30px;
+        }  
+
+        .cnts {
+          font-size: 50%;
+          font-weight: 500;    
+          vertical-align: super;        
+          letter-spacing: -2px;
+          line-height: 70%;
+          @include pads(
+            $bottom: 10px,
+            $right: 5px
+          );          
+        }
+
+      } // end price
+
+      .phone {
+        font-size: $font-size-lg;
+        line-height: 1;
+        padding-right: $global-padding;
+        input {
+          display: inline-block;
+          width: 120px;
+          font-size: $font-size-lg;
+          padding-bottom: 3px;
+          padding-left: 0px;
+          margin-right: 3px;
+        }
+        i.fa {
+          @include position(relative, 2px null null auto);
+        }
+        strong {
+          background-color: white;
+        }
+      }
+
+      .message {
+        margin-bottom: $global-padding * 2;
+      }
+
+      .pull-right {
+        float: right !important;
+      }
+
+
+      @include media($small-screen) {
+
+        .shadow-box {
+            @include pads(
+              $top: $global-padding,
+              $right: $global-padding,
+              $bottom: $global-padding / 2,
+              $left: $global-padding
+            );            
+        }
+        
+        .arrow-thing {
+          right: 20px;
+          top: 60px;
+
+          @if $payment-final-has-tel-input {
+            height: 97px; 
+          } @else {
+            height: 62px;
+          }                         
+        }
+           
+        .phone{          
+          padding-right: 0;
+          padding-top: $global-padding / 2;
+          label {
+            display: block;
+            margin: 0;
+          }
+          input {
+            @include margins($top: ($global-padding / 2), $right:($global-padding / 2));
+            width: 150px;
+          }          
+          i.fa {
+            width: 15px;
+          }
+        }
+
+        .price {          
+          height: 70px;
+          &.digits-5 {
+            font-size: 60px;
+          }      
+          &.digits-4 {
+            font-size: 70px;
+          }
+          &.digits-3 {
+            font-size: 80px;
+            letter-spacing: -2px;
+          }        
+          .sum:before {
+            font-size: 20px;
+            font-weight: 600;  
+            margin-left: -15px;
+          }    
+        }
+
+      } // end small screen
+
+
+    } // end step 3    
+    
+  } // at root
+  
+
+    
+} // end GUEST PAYMENT
+
+
+// REGULAR PAYMENTS
+
+
+
+
+
+// end main-content
+

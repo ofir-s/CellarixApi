@@ -1,0 +1,36 @@
+<class-controller-directive element='body' classes='' />
+<class-controller-directive element='footer' classes='' />
+
+<header>
+  <h1>Cellarix</h1>
+    <div class="steps three-steps">
+        <nav>
+            <ul>
+                <li role="presentation" ng-class="{'active': $state.includes('main.guestPayment.step1'), 'done' : passedSteps.data[1] }">
+                    <a tabindex="0" href="" ng-click="goToStep(1)">
+                        <strong>שלב 1</strong> <span>פרטים אישיים</span>
+                    </a>
+                </li>
+                <li role="presentation" ng-class="{'disabled': !passedSteps.data[1], 'active': $state.includes('main.guestPayment.step2'), 'done' : passedSteps.data[2] }">
+                    <a tabindex="0" href="" ng-click="goToStep(2)">
+                        <strong>שלב 2</strong> <span>פרטי אשראי</span>
+                    </a>
+                </li>
+                <li role="presentation" ng-class="{'disabled': !passedSteps.data[2], 'active': $state.includes('main.guestPayment.step3'), 'done' : passedSteps.data[3] }">
+                    <a tabindex="0" href="" ng-click="goToStep(3)">
+                        <strong>שלב 3</strong> <span>אישור</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main class="guest-payments">
+    <p class="security-message">התשלום מאובטח באמצעות SSL ועל פי תקן האבטחה PCI</p>
+    <div data-ui-view="step1" ng-show="$state.includes('main.guestPayment.step1')"></div>
+    <div data-ui-view="step2" ng-show="$state.includes('main.guestPayment.step2')"></div>
+    <div data-ui-view="step3" ng-show="$state.includes('main.guestPayment.step3')"></div>
+    <!--<div>-->
+    <!-- <span>סה"כ לתשלום {{dealData.data.cart.cartTotal.totalAmountToBeCharge}} ₪ </span> -->
+    <!--</div>-->
+</main>

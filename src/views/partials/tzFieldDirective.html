@@ -1,0 +1,13 @@
+<fieldset class="form-group" ng-cloak>
+    <input id="idNumber" type="tel" class="form-control" ng-minlength="9" limit-to ng-maxlength="9" ng-model="idField" tz-validation ng-init="idField = (idField || initField)" ng-required="true" name="idNumber"  tabindex="{{tabIndex}}" ng-blur="validateIdNumber()" ng-disabled="isDisabled">
+    <label for="idNumber"><i class="asterisk">*</i> ת.ז. </label>
+    <div class="messages">
+        <div class="error-messages" ng-messages="formName.idNumber.$error" ng-show="formName.idNumber.$touched">
+            <span ng-message="required">שדה חובה</span>
+            <span ng-message="minlength">חייב להיות בעל 9 ספרות</span>
+            <span ng-message="maxlength">חייב להיות בעל 9 ספרות</span>
+            <span ng-message="tz">מספר ת.ז. שהוקש - לא תקין</span>
+            <span ng-message="parse">שדה חובה</span>
+        </div>
+    </div>
+</fieldset>

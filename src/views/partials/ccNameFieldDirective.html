@@ -1,0 +1,10 @@
+<fieldset class="form-group">
+    <input id="creditCardName" type="text" tabindex="{{tabIndex}}" class="form-control" ng-required="true" limit-to ng-maxlength="55" name="creditCardName" ng-model="ccNameField">
+    <label for="creditCardName"><i class="asterisk">*</i>שם מלא של בעל הכרטיס</label>
+    <div class="messages">
+        <div class="error-messages" ng-messages="formName.creditCardName.$error" ng-show="formName.creditCardName.$touched">
+            <span ng-message="maxlength">לא ניתן להכניס יותר מ55 תווים</span>
+            <span ng-message="required">שדה חובה</span>
+        </div>
+    </div>
+</fieldset>

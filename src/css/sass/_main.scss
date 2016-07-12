@@ -1,0 +1,322 @@
+//MAIN
+
+
+main {    
+
+  min-height: calc(100vh - 80px - 80px - (#{$global-padding} * 1.5));
+  margin-top: $global-padding * 1.5;
+  padding-bottom: $global-padding / 2;
+  position: relative;
+  z-index: 100;
+  overflow: visible;
+  
+  @include media($is-mobile) {
+    margin-top: 0px;
+    border-top: 0;
+    min-height: calc(100vh - 145px - 80px);
+//  }
+//    
+//  @include media($small-screen) {
+    @include pads($left: $global-padding, $right: $global-padding);
+  }  
+  
+  
+  // front main (login etc)
+  
+  &.front {      
+    margin: 0;    
+    min-height: calc(100vh - 85px);
+    border-top: none;
+    @include bg-img-cover("#{$base-url}img/login_bg.jpg", right bottom);
+    overflow: auto;
+    
+    @include media($is-mobile) {
+      min-height: calc(100vh - 72px - 85px);
+    }
+    @include media($smallish-screen) {
+      //@include pads($left: $global-padding, $right: $global-padding);
+    }      
+
+    @include media($super-wide-screen) {
+     background-position: center;
+    }      
+    
+    @include media($small-screen) {
+     background-position: center;
+    }
+    
+    @include media($small-height-screen) {
+     background-position: right center;
+    } 
+    @include media($small-screen, $small-height-screen) {
+     background-position: center;
+    }
+    
+  }    
+
+} // end main
+
+ .security-message {
+   
+      @include size($content-width, auto);
+      @include margins($center:true);
+      padding-top: $global-padding;
+      border-top: 1px solid $gray-light;
+   
+      @include media($is-mobile) {        
+        border-top: 0;
+      }
+   
+    font-size: $font-size-sm;
+    color: $brand-primary;
+    text-align: center;
+    font-weight: 600;
+    line-height: 100%;
+    margin-bottom: $global-padding;
+    position: relative;
+    z-index: 300;
+    white-space: nowrap;
+
+    @include media($small-screen) {
+      width: auto;
+      font-size: $font-size-xs;
+    }
+
+    @include media($super-small-screen) {
+      letter-spacing: -0.35px;
+    }   
+   
+    &:before {
+      @extend .icn_lock-grn;
+      @extend %bg-pos-center-contain;
+      @include pseudo(inline-block);
+      @include size(10px, get-icn-height(icn_lock, 10px));            
+      margin-left: 10px;
+      vertical-align: bottom;
+
+      @include media($small-screen) {          
+        font-size: $font-size-xs;
+        @include size(8px, get-icn-height(icn_lock, 8px));
+        margin-left: 5px;
+      }
+    }
+
+  } // end security-message
+
+
+// SECTION / MAIN CONTENT
+
+section {
+  
+  @include clearfix();
+  @include size($content-width, auto);
+  @include margins($center:true);
+  background-color: white;
+  @extend .shadow-box;
+  position: relative;
+  padding: $global-padding * 1.5;
+
+  // top-right icons
+  
+  &:before, &:after {
+    @include pseudo;
+    @include position(absolute, 0 0 null null);
+  }
+  
+  &:before {  
+    @include triangle-topright(40px,$brand-primary);
+//    @include media($small-screen) {
+//      border-top-width: 36px;
+//      border-left-width: 36px;
+//    }
+  }
+  &:after {
+    @include size(22px);
+//    @include media($small-screen) {
+//      @include size(20px);
+//    }
+  }
+  
+  @include media($small-screen) {
+    width: auto;
+    padding: $global-padding;  
+  }  
+  
+  // section  wide (guest payments step 2 etc)
+  
+  &.wide {
+    min-width: $content-width;
+    max-width: $content-width-wide;
+    width: auto;    
+    background-color: rgba(255,255,255,0.75);
+    
+    @include media($small-screen) {
+      min-width: auto;
+      background-color: white;
+    }  
+    @include media($super-small-screen) {
+      @include margins(
+        $left: -($global-padding / 2),
+        $right: -($global-padding / 2)
+      );
+    }
+      
+  }
+  
+  
+  
+
+} // end section
+
+
+
+@mixin section-no-box($center-horiz:true,$center-vert:true,$clear-horiz-on-sm-screen:true,$reset-pads-dims:true,$clear-centerer-on-sm-screen:true) {  
+  @include reset-element($pseudo:true,$pads-dims:$reset-pads-dims,$bg:false);      
+  @include centerer($center-horiz,$center-vert);
+  
+  @include media($small-height-screen) {
+    @if $clear-centerer-on-sm-screen {
+      @if $clear-horiz-on-sm-screen {
+        @include centerer-clear;  
+      } @else {
+        @include centerer-clear($horiz:false);  
+      }
+    }
+  }
+  
+  @include media($small-screen) {
+    @if $clear-centerer-on-sm-screen {
+      @if $clear-horiz-on-sm-screen {
+        @include centerer-clear;  
+      } @else {
+        @include centerer-clear($horiz:false);  
+      }
+    }
+  }    
+}
+
+
+// front section (login etc)
+
+.front section {
+  
+  @include section-no-box($center-horiz:false);
+  margin-right: $global-padding * 2.5;
+  
+  @include media($wide-screen) {
+    margin-right: $global-padding * 3.5;
+  }  
+    
+  width: $front-content-width;
+  padding-top: $global-padding + 5px;
+  background-color: rgba(255,255,255,0.95);
+  
+  text-align: center;
+  
+  .messages {
+    text-align: right;
+  }
+
+  @include media($small-height-screen) {
+    //margin-top: $global-padding * 4;
+    margin-top: $global-padding * 3;
+    margin-bottom: $global-padding;
+  }
+  
+  @include media($small-height-screen,$is-mobile) {
+    margin-top: $global-padding * 1.5;
+  }
+
+  @include media($smallish-screen) {
+    margin-right: calc(50vw - #{$global-padding} - #{($front-content-width / 2)});
+  }   
+  
+  @include media($small-screen) {
+    width: auto;
+    margin: ($global-padding * 1.5) 0 0 0;
+  }   
+  
+}
+
+// success  
+
+.front.success section {
+  
+  background: none;
+  margin-right: $global-padding *1.5 * 3;
+  padding-top: 0;
+  
+  @include media($small-height-screen) {
+    //margin-top: $global-padding * 2;
+    margin-top: $global-padding * 1.5;
+  }  
+  @include media($super-small-height-screen) {
+    margin-top: $global-padding / 2;
+    margin-bottom: 0;
+  }   
+  
+  @include media($smallish-screen) {
+    margin-right: calc(50vw - #{($front-content-width / 2)});
+  }
+  
+  @include media($small-screen) {
+    width: auto;
+    margin-right: 0;
+  }
+  
+}
+
+// INDEX SECTION
+
+main.index {
+  min-height: auto;
+  height: 100%;
+  margin: 0;
+  padding: $global-padding;
+}
+.index-section {
+  
+  .fa-spinner {
+    display: inline-block;
+    // remove font-awesome:
+    @include size(200px);
+    &:before { display:none; }
+    // add nice spinner
+    @include spin-zoomer-pulser(200px, rgba($brand-primary,0.5),true,10px);
+    @include position(absolute,50% null null 50%);
+    @include margins($left:-100px,$top:-100px);
+  }    
+  
+  text-align: center;
+  padding: 0;
+  @include section-no-box($reset-pads-dims:false, $clear-centerer-on-sm-screen:false);
+  background-color: rgba(255,255,255,0.65);
+  box-shadow: 0 0 50px 30px rgba(255,255,255,0.8);    
+  
+  p {
+    font-size: $font-size-lg;
+  }
+  h3 {
+    color: $brand-primary;
+  }
+
+  .cellarix-logo {
+    width: 50%;
+    display: block;
+    @include margins($center:true,$bottom:$global-padding);
+  }
+  
+  @include media($super-small-screen) { 
+    h3 {
+      font-size: $font-size-lg;
+    }
+    p {
+      font-size: $font-size-base;
+    }                
+  }        
+
+  @include media($small-screen) {
+    width: 95vw;
+  }    
+
+}

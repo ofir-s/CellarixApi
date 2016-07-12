@@ -1,0 +1,36 @@
+<class-controller-directive element='body' classes='front' />
+<class-controller-directive element='footer' classes='front' />
+<header class="front">
+    <h1>Cellarix</h1>
+</header>
+<main class="front">
+    <section>
+        <div class="intro-message">
+            <p>כניסה לחשבון</p>
+            <h3>סלאריקס פלוס</h3>
+        </div>
+        <div ng-form name="loginForm">
+            <cellphone-field-directive form-name="loginForm" cellphone-field="login.CellphoneNumber" tab-index="1" is-large="false" />
+            <fieldset class="form-group password">
+                <input id="password" tabindex="2" type="password" ng-model="login.Password" limit-to ng-maxlength="50" class="form-control" ng-pattern="/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{7,}$/" name="password" ng-required="true" peek-to-password>
+                <label for="password"><i class="asterisk">*</i> סיסמא </label>
+                <div class="messages">
+                    <div class="error-messages" ng-messages="loginForm.password.$error" ng-show="loginForm.password.$touched">
+                        <span ng-message="required">שדה חובה</span>
+                        <span ng-message="maxlength">לא ניתן להכניס יותר מ50 תווים</span>
+                    </div>
+                </div>
+            </fieldset>
+            <!--captcha-->
+            <div class="cap-cha" style="display:none;"></div>
+            <cellarix-errors-directive />
+            <fieldset class="form-button form-group">
+                <button enable-kb-click tabindex="3" ng-disabled="loginForm.$invalid || loginRequestInProgress" ng-click="connect()"><i ng-show="loginRequestInProgress" class="fa fa-spinner fa-spin fa-fw"></i>כניסה</button>
+            </fieldset>
+            <a tabindex="4" ui-sref="main.resetPassword">שכחתי סיסמא</a>
+            <fieldset class="form-button form-group">
+                <button enable-kb-click tabindex="4" ui-sref="main.registration.step1">משתמש חדש? נעים מאוד</button>
+            </fieldset>
+        </div>
+    </section>
+</main>

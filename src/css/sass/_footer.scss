@@ -1,0 +1,78 @@
+//FOOTER
+
+
+footer {
+
+  @include size(100%,80px);
+  padding-bottom: 10px;
+  background-color: white;
+  box-shadow: 0 10px 40px 20px white;
+  display: table;
+  position: relative;
+  overflow: hidden;
+  
+  @at-root {
+    .front footer,
+    .front.footer,
+    .front + footer {
+      box-shadow: none;
+      height: 85px;
+    }
+  }  
+  
+  &:before, &:after {
+    @include pseudo(table-cell);
+    width: calc(50vw - 200px);
+
+    @include media($small-screen) {
+      display: none;
+    }
+  }
+
+  p {
+    width: $content-width;
+    text-align: center;
+    font-weight: 600;
+    vertical-align: bottom;
+    display: table-cell;
+
+    @include media($is-mobile) {
+      text-align: right;
+      vertical-align: middle;
+    }
+
+    @include media($small-screen) {
+      @include pads($left: $global-padding, $right: $global-padding);
+      width: 100%;
+      font-size: $font-size-sm * 1.05;
+    }
+
+    @include media($super-small-screen) {
+      font-size: $font-size-xs * 1.1;
+      letter-spacing: -0.35px;
+    }
+
+
+  } // end p
+
+  .cellarix-logo {
+    @include size(195px,auto);
+    @include position(absolute, null null 10px 10px);
+    @include no-text-select();
+
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+
+    @include media($is-mobile) {
+      display: none;
+    }
+
+  }
+
+
+} // end footer
+
+
+footer.success + .cart {
+  display: none;
+}

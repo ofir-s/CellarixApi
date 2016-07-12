@@ -1,0 +1,60 @@
+<div ng-cloak>
+    <fieldset class="form-group">
+        <input id="creditCardNumber" tabindex="{{tabIndex}}"  type="tel" class="form-control cc-number" ng-required="true" name="creditCardNumber" ng-model="addCreditCardData.creditCardNumber" minlength="8" maxlength="19">
+        <i class="fa" ng-class="getCCclass()"></i>
+        <label for="creditCardNumber"><i class="asterisk">*</i> מספר כרטיס אשראי </label>
+        <div class="messages">
+            <div class="error-messages" ng-messages="formName.creditCardNumber.$error" ng-show="formName.creditCardNumber.$touched">
+                <span ng-message="required">שדה חובה</span>
+                <span ng-message="minlength">מספר כרטיס אשראי לא תקין</span>
+                <span ng-message="maxlength">סוג כרטיס אשראי לא מזוהה</span>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="form-group card">
+        <div class="inline-form-items" id="card-info" cc-exp>
+            <!--expire year-->
+            <div class="inline-form-item">
+                <input id="creditCardExpirationYear" type="tel" tabindex="{{tabIndex}}"  cc-exp-year class="form-control" ng-required="true" name="creditCardExpirationYear" ng-model="addCreditCardData.creditCardExpirationYear">
+                <label for="creditCardExpirationYear">שנה (YY)</label>
+            </div>
+            <!--expire month-->
+            <div class="inline-form-item">
+                <input id="creditCardExpirationMonth" type="tel" tabindex="{{tabIndex}}"  cc-exp-month class="form-control" ng-required="true" name="creditCardExpirationMonth" ng-model="addCreditCardData.creditCardExpirationMonth">
+                <label for="creditCardExpirationMonth">חודש (MM)</label>
+            </div>
+            <!--CVV-->
+            <div class="inline-form-item">
+                <input id="cvv" type="tel" cc-cvc class="form-control" tabindex="{{tabIndex}}"  ng-required="true" name="cvv" ng-model="addCreditCardData.cvv">
+                <i class="fa fa-info-circle" uib-tooltip="מספר ה-CVV נמצא בגב הכרטיס, בעל 3 ספרות בסמוך לחתימה. בכרטיס אמריקן אקספרס המספר נמצא בחזית הכרטיס ובעל 4 ספרות"></i>
+                <label for="cvv">CVV</label>
+            </div>
+        </div>
+        <!-- /inline-selects-->
+        <!--label for card info block-->
+        <label for="card-info"><i class="asterisk">*</i> תוקף</label>
+        <!--all error messages for card info-->
+        <div class="messages">
+            <div class="error-messages" ng-messages="formName.creditCardExpirationYear.$error" ng-show="formName.creditCardExpirationYear.$touched">
+                <span ng-message="required">שדה חובה - שנה</span>
+                <span ng-message="maxlength">מקסימום 2 שפרות - שנה</span>
+                <span ng-message="parse">ערך לא תקין - שנה</span>
+                <span ng-message="ccExpYear">ערך לא תקין - שנה</span>
+            </div>
+            <div class="error-messages" ng-messages="formName.creditCardExpirationMonth.$error" ng-show="formName.creditCardExpirationMonth.$touched">
+                <span ng-message="required">שדה חובה - חודש</span>
+                <span ng-message="maxlength">מקסימום 2 שפרות - חודש</span>
+                <span ng-message="parse">ערך לא תקין - חודש</span>
+                <span ng-message="ccExpMonth">ערך לא תקין - חודש</span>
+            </div>
+            <div class="error-messages" ng-messages="formName.$error" ng-show="formName.creditCardExpirationMonth.$touched && formName.creditCardExpirationYear.$touched">
+                <span ng-message="ccExp">תאריך שהוקש כבר עבר</span>
+            </div>
+            <div class="error-messages" ng-messages="formName.cvv.$error" ng-show="formName.cvv.$touched">
+                <span ng-message="required">שדה חובה - CVV</span>
+                <span ng-message="ccCvc">ערך לא תקין - CVV</span>
+                <span ng-message="parse">ערך לא תקין - CVV</span>
+            </div>
+        </div>
+    </fieldset>
+</div>

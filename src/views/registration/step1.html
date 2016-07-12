@@ -1,0 +1,44 @@
+<section class="step-1">
+    <div ng-form name="registrationFormStepOne">
+        <div ng-disabled="initRegistrationRequestInProgress || passedSteps.data[3]">
+            <cellphone-field-directive is-verify="true" form-name="registrationFormStepOne" cellphone-field="commitRegistration.data.cellphoneNumber" tab-index="1" is-large="true" />
+            <first-name-field-directive first-name-field="commitRegistration.data.firstName" form-name="registrationFormStepOne" tab-index="2" />
+            <last-name-field-directive last-name-field="commitRegistration.data.lastName" form-name="registrationFormStepOne" tab-index="3" />
+            <tz-field-directive is-verify="true" form-name="registrationFormStepOne" id-field="commitRegistration.data.idNumber" tab-index='4' />
+            <fieldset class="form-group date">
+                <div id="birthDate" tab-index="5" sb-date-select ng-model="commitRegistration.data.birthDate" ng-required="true" name="birthDate"></div>
+                <label for="birthDate"><i class="asterisk">*</i> תאריך לידה </label>
+                <div class="messages">
+                    <div class="error-messages" ng-messages="registrationFormStepOne.birthDate.$error" ng-show="registrationFormStepOne.birthDate.$touched">
+                        <span ng-message="required">שדה חובה</span>
+                    </div>
+                </div>
+            </fieldset>
+            <a href="javascript:void(0)" tabindex="6" class="fieldset-toggle" ng-click="togglePromotionalCodeField()" ng-class="{'on': isHavePromotionalCode,'off':!isHavePromotionalCode}"> {{ !isHavePromotionalCode ? 'יש לך קוד הטבה?' : 'אין לי קוד הטבה'}} </a>
+            <fieldset class="form-group fieldset-toggle-target" ng-class="{'on': isHavePromotionalCode,'off':!isHavePromotionalCode}">
+                <input tabindex="6" id="promotionalCode" type="text" class="form-control" limit-to ng-maxlength="250" ng-model="commitRegistration.data.promotionalCode" name="promotionalCode">
+                <label for="promotionalCode">הזן קוד הטבה</label>
+                <div class="messages">
+                    <div class="error-messages" ng-messages="registrationFormStepOne.promotionalCode.$error" ng-show="registrationFormStepOne.promotionalCode.$touched">
+                        <span ng-message="maxlength">לא ניתן להכניס יותר מ250 תווים</span>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-group radios select-sex">
+                <div class="sex-m radio">
+                    <input id="select-m" type="radio" name="gender" ng-required="true" ng-model="commitRegistration.data.isMale" name="genderMale" ng-value="true" ng-init="commitRegistration.data.isMale = true">
+                    <label enable-kb-click tabindex="7" for="select-m"> אני גבר</label>
+                </div>
+                <div class="sex-f radio">
+                    <input id="select-f" type="radio" name="gender" ng-required="true" ng-model="commitRegistration.data.isMale" name="genderFemale" ng-value="false">
+                    <label enable-kb-click tabindex="7" for="select-f"> אני אישה</label>
+                </div>
+            </fieldset>
+            <cellarix-errors-directive />
+            <fieldset class="form-group">
+                <button enable-kb-click type="button" tabindex="8" ng-disabled="registrationFormStepOne.$invalid" ng-click="initRegistration()">
+                    לשלב הבא</button>
+            </fieldset>
+        </div>
+    </div>
+</section>

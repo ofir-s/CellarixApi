@@ -1,0 +1,39 @@
+<section class="step-3">
+    <div class="verify-message">
+        <h4>כבר מסיימים...</h4>
+        <p ng-hide="passedSteps.data[3]"> לפני הזנת פרטי התשלום שלך נרצה לאמת נתונים.</p>
+    </div>
+    <div class="verify-form" ng-form="registrationFormStepThree">
+        <p>ברגעים אלה, ישלח אליך קוד אימות למספר {{commitRegistration.data.cellphoneNumber}}</p>
+        <!--verification number-->
+        <fieldset class="form-group" ng-disabled="commitRegistrationRequestInProgress.value || passedSteps.data[3]">
+            <input id="enter-code" class="form-control" type="text" numbers-only ng-minlength="5" limit-to ng-maxlength="5" ng-model="commitRegistration.data.verificationCode" tabindex="1" ng-required="true" name="verificationCode">
+            <label for="enter-code">אנא הזן את הקוד פה</label>
+            <div class="messages">
+                <div class="error-messages" ng-messages="registrationFormStepThree.verificationCode.$error" ng-show="registrationFormStepThree.verificationCode.$touched">
+                    <span ng-message="required">שדה חובה</span>
+                    <span ng-message="minlength">חייב להיות לפחות 5 ספרות</span>
+                    <span ng-message="maxlength">לא ניתן להכניס יותר מ5 ספרות</span>
+                    <span ng-message="parse">שדה חובה</span>
+                </div>
+            </div>
+        </fieldset>
+        <!--checkbox-->
+        <fieldset class="form-group checkbox">
+            <input tabindex="2" id="isTermsOfUse-agree" type="checkbox" ng-value="true" ng-model="commitRegistration.data.isTermsOfUse">
+            <label for="isTermsOfUse-agree"></label>
+            קראתי את <a href="javascript:void(0)" ng-click="displayTerms()">התקנון</a>, ניתן להמשיך
+        </fieldset>
+        <fieldset class="form-group checkbox">
+            <input tabindex="3" id="isAllowMarketing-agree" type="checkbox" ng-value="true" ng-init="commitRegistration.data.isAllowMarketing = true" ng-model="commitRegistration.data.isAllowMarketing">
+            <label for="isAllowMarketing-agree"></label>
+            מקובל עלי לקבל דיוורים לכתבת המייל ו-sms לנייד
+        </fieldset>
+        <cellarix-errors-directive />
+        <a class="pull-right" tabindex="5" href="" ng-disabled="!didNotReceivedTheCode" ng-click="resendVerificationCode()">לא קיבלתי, שלח לי שוב</a>
+        <!--button-->
+        <fieldset class="form-button form-group">
+            <button enable-kb-click tabindex="4" type="button" class="btn btn-success" ng-disabled="registrationFormStepThree.$invalid || !commitRegistration.data.isTermsOfUse || commitRegistrationRequestInProgress.value" ng-click="commitRegistrationCall()"><i ng-show="commitRegistrationRequestInProgress.value" class="fa fa-spinner fa-spin fa-fw"></i>לשלב הבא </button>
+        </fieldset>
+    </div>
+</section>

@@ -1,0 +1,14 @@
+<section class="step-4">
+    <div ng-form name="registrationFormStepFour" novalidate>
+        <fieldset ng-disabled="createCreditCardForGuestRequestInProgress || passedSteps.data[2]">
+            <cellarix-cc-directive add-credit-card-data="addCreditCard.data" form-name="registrationFormStepFour" tab-index="1" />
+            <cc-name-field-directive cc-name-field="addCreditCard.data.creditCardName" form-name="registrationFormStepFour" tab-index="2" />
+        </fieldset>
+        <tz-field-directive is-disabled="true" form-name="registrationFormStepFour" id-field="addCreditCard.data.creditCardOwnerIdNumber" init-field="{{commitRegistration.data.idNumber}}" tab-index="3" />
+        <cellarix-errors-directive />
+        <!--button-->
+        <fieldset class="form-button form-group">
+            <button enable-kb-click tabindex="4" type="button" ng-disabled="registrationFormStepFour.$invalid || validateCreditCardRequestInProgress" ng-click="goToFinalStep()"><i ng-show="validateCreditCardRequestInProgress" class="fa fa-spinner fa-spin fa-fw"></i>לשלב הבא</button>
+        </fieldset>
+    </div>
+</section>

@@ -1,0 +1,12 @@
+<fieldset class="form-group">
+    <input id="email" type="email" class="form-control"  ng-required="true" ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i" limit-to ng-maxlength="255" name="email" ng-model="emailField" tabindex="{{tabIndex}}">
+    <label for="email"><i class="asterisk">*</i>דוא"ל
+        <span>(מבטיחים לא לשלוח SPAM)</span></label>
+    <div class="messages">
+        <div class="error-messages" ng-messages="formName.email.$error" ng-show="formName.email.$touched">
+            <span ng-message="pattern">חייב להיות כתובת דוא"ל תקינה</span>
+            <span ng-message="maxlength">לא ניתן להכניס יותר מ255 תווים</span>
+            <span ng-message="required">שדה חובה</span>
+        </div>
+    </div>
+</fieldset>

@@ -1,0 +1,18 @@
+.idea
+node_modules
+.sass-cache
+.vscode
+src/js/build/*
+src/css/stylesheets/style.css
+src/css/stylesheets/vendor.css
+!src/js/build/.gitkeep
+
+dist/*
+!dist/.gitkeep
+
+# Include your project-specific ignores in this file
+# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
+uploads/*
+!uploads/.gitkeep
+/ngrok.exe
+/src/css/stylesheets/style.css.map

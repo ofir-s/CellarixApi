@@ -1,0 +1,32 @@
+<class-controller-directive element='body' classes='front success' />
+<class-controller-directive element='footer' classes='front success' />
+
+<header class="front success">
+ <h1>Cellarix</h1> 
+</header>
+
+<main class="front success">
+    <p class="success-top-text">
+        <span>פעולה בוצעה בהצלחה!</span><span>מספר אסמכתא {{chargeResponse.transactionUnionNumber}}</span>
+    </p>
+    <section>
+        <div class="success-message">
+            <h3>בוצע!</h3>
+            <p>לבקשתך בוצע תשלום ע"ס <span class="sum shekel">{{chargeResponse.totalAmountCharged}}</span> {{ guestPayment ? 'בכרטיס אשראי' : 'בחשבון Cellarix' }}, מספר אסמכתא {{chargeResponse.transactionUnionNumber}}</p>
+        </div>
+        <div class="success-button" ng-show="guestPayment">
+            <h4>כן, הזמן שלי יקר לי.</h4>
+            <p>שמרו את הפרטים שלי ליצירת חשבון Cellarix</p>
+            <fieldset class="form-button form-group">
+                <button enable-kb-click tabindex="0" ui-sref="main.registration.step1({userData: guestPayment.createAccountGuestData, creditCardData: guestPayment.addCreditCardData})">ליצירת חשבון Cellarix</button>
+            </fieldset>
+            <a ng-href="callbackUrl">לא תודה, כחו אותי לדף הבית</a>
+        </div>
+        <div class="success-button" ng-show="!guestPayment">
+            <h4>מיד תעבור לדף הבית</h4>
+            <fieldset class="form-button form-group">
+                <button enable-kb-click tabindex="0" ng-click="goToCallbackUrl()" >למעבר לדף הבית</button>
+            </fieldset>
+        </div>
+    </section>
+</main>

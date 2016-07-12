@@ -1,0 +1,219 @@
+//HEADER
+
+header {
+
+  #{$a-tags} {
+    text-decoration: none !important;
+    text-decoration-color: transparent;
+    @include no-text-select;
+  }
+
+  @include size(100%,auto);
+  background-color: white;
+  //box-shadow: 0 10px 40px 20px white;
+  box-shadow: 0 35px 50px 30px white;
+  overflow-x: hidden;
+
+  @include media($is-mobile) {
+    //box-shadow: 0 35px 50px 30px white;
+  }
+
+  &.front {
+    box-shadow: none;     
+    .steps,nav {
+      display: none;
+    }
+  }        
+  
+  h1 {
+
+    @include size(100%,72px);
+    padding: $global-padding / 2;
+    @include text-hide();
+    @include bg-image("#{$base-url}img/logo.png");
+    background-origin: content-box;
+    box-shadow: 0 0 6px 0 rgba(0,0,0,0.2);
+
+    @include media($is-desktop) {
+      display: none;
+    }
+
+    @at-root {
+      header.front h1 {
+        box-shadow: none;
+        //@include margins($top:4px,$bottom:4px);
+        margin-bottom: 0;
+      }
+    }
+    
+  }
+
+  .steps {
+
+    @include size(100%,80px);
+    //@include position(fixed, 0 null null 0);
+    overflow-x: hidden;
+
+    @include media($is-mobile) {
+      box-shadow: inset 0 -2px 0 0 $gray-light;
+      font-size: 15px;
+      line-height: 100%;
+      height: auto;
+    }
+
+  } // end ..steps
+
+  nav {
+
+    @include make-container();
+    @include make-container-max-widths();
+
+    ul {
+
+      @include reset-element;
+      @include size(100%,100%);
+      //@include make-row();
+      display: table;
+
+    }
+
+      @at-root {
+    
+          .two-steps li {
+            @include make-col(12/2);
+            float: none;
+          }          
+          .three-steps li {
+            @include make-col(12/3);
+            float: none;
+          }
+          .four-steps li {
+            @include make-col(12/4);
+            float: none;
+          }
+          @include media($super-small-screen) {      
+            .two-steps li, .three-steps li, .four-steps li {
+              @include pads($left:5px,$right:5px);
+            }
+          }
+        
+      }
+
+      li {
+
+        height: 100%;
+        display: table-cell;        
+        text-align: center;
+        vertical-align: bottom;
+        white-space: nowrap;
+
+        strong,span {
+          position: relative;
+          display: inline-block;
+          line-height: 1.5;
+        }
+
+        @include media($is-mobile) {
+          span {
+            display: block;
+          }
+        }
+        @include media($small-screen) {
+          span {
+            letter-spacing: -0.5px;          
+          }
+        }
+        a {
+
+          display: inline-block;
+          position: relative;
+          padding-top: $global-padding * 2;
+          color: $gray;
+          text-decoration: none;
+         
+          &:link,&:hover,&:visited,&:active {
+            color: $gray;
+            text-decoration: none;
+            outline: 0;
+          }
+
+          @include media($is-mobile) {
+            padding-top: $global-padding / 2;
+          }
+
+
+          &:after {
+            @include pseudo;
+            @include size(auto,($global-padding - 5px));
+            width: auto;
+
+            @include media($is-mobile) {
+              height: $global-padding / 2;
+            }
+
+          }
+
+          @if ($nice-things) {
+            //@include slide-border($brand-primary, 2px, '', false);
+          }
+
+        } // end a
+
+        &.active a {
+          color: $gray-dark;
+          &:link,&:hover,&:visited,&:active {
+            color: $gray-dark;
+          }
+          @if ($nice-things) {
+            //@include slide-border-on();
+          }
+        }
+
+        &:not(.disabled) a:hover:after {
+          border-bottom: 2px solid $brand-primary;
+        }
+
+        &.active a:after {
+          border-bottom: 2px solid $brand-primary;
+        }
+
+        &.disabled a {
+          cursor: $cursor-disabled;
+        }
+
+        &.done {
+          @include fix-weird-webkit-shit();
+        }
+
+        &.done strong:after {
+
+          @if ($nice-things) {
+            @include bounceIn();
+          }
+
+          @extend .icn_chkpnt-wht;
+          background-size: 9px get-icn-height(icn_chkpnt,9px);
+          background-position: center;
+          @include pseudo;
+          @include circle(15px,$brand-primary);
+          border: 1px solid white;
+          @include position(absolute, -2px -7px null null);
+          box-shadow: 0 0 4px 0 rgba(0,0,0,0.5);
+
+        }
+
+      } // end li
+
+    @include media($super-small-screen) {      
+      @include pads($left:5px,$right:5px);
+      li {
+        overflow-y: visible;
+      } 
+    }
+
+  } // end nav
+
+
+} // end header
+
+

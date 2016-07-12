@@ -1,0 +1,40 @@
+<class-controller-directive element='body' classes='' />
+<class-controller-directive element='footer' classes='' />
+
+<header>
+  <h1>Cellarix</h1> 
+    <div class="steps four-steps">
+        <nav>
+            <ul>
+                <li role="presentation" ng-class="{'active': $state.includes('main.registration.step1'), 'done' : validForms.data[1] }">
+                    <a tabindex="0" ui-sref="main.registration.step1">
+                        <strong>שלב 1</strong> <span>פרטים אישיים</span>
+                    </a>
+                </li>
+                <li role="presentation" ng-class="{'disabled': !validForms.data[1], 'active': $state.includes('main.registration.step2'), 'done' : validForms.data[2] }">
+                    <a tabindex="0" href="javascript:void(0)" ng-click="goToStep(2)">
+                        <strong>שלב 2</strong> <span>אבטחה</span>
+                    </a>
+                </li>
+                <li role="presentation" ng-class="{'disabled': !validForms.data[2], 'active': $state.includes('main.registration.step3'), 'done' : validForms.data[3] }">
+                    <a tabindex="0" href="javascript:void(0)" ng-click="goToStep(3)">
+                        <strong>שלב 3</strong> <span>אימות</span>
+                    </a>
+                </li>
+                <li role="presentation" ng-class="{'disabled': !validForms.data[3], 'active': $state.includes('main.registration.step4'), 'done' : validForms.data[4] }">
+                    <a tabindex="0" href="javascript:void(0)" ng-click="goToStep(4)">
+                        <strong>שלב 4</strong> <span>פרטי תשלום</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main class="registration">
+    <p class="security-message">התשלום מאובטח באמצעות SSL ועל פי תקן האבטחה PCI</p>
+    <div class="main-content step-1" data-ui-view="step1" ng-show="$state.includes('main.registration.step1')"></div>
+    <div class="main-content step-2" data-ui-view="step2" ng-show="$state.includes('main.registration.step2')"></div>
+    <div class="main-content step-3" data-ui-view="step3" ng-show="$state.includes('main.registration.step3')"></div>
+    <div class="main-content step-4" data-ui-view="step4" ng-show="$state.includes('main.registration.step4')"></div>
+    <div class="main-content step-final" data-ui-view="stepFinal" ng-show="$state.includes('main.registration.stepFinal')"></div>
+</main>

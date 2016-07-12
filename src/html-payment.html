@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="he" class="no-js" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Cellarix</title>
+    <meta name="description" content="Cellarix">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+    <link rel="stylesheet" href="css/stylesheets/style.css" type="text/css" />
+    <link rel="stylesheet" href="css/stylesheets/vendor/loading-bar.css" type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" type="text/css" />
+    <!--polyfills for hmlt5 for ie < 9-->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/selectivizr/1.0.2/selectivizr-min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+      <script src="app/js/rem.min.js"></script>
+    <!-- <![endif] -->
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+</head>
+
+<body data-ng-app="cellarixPaymentApp">
+  
+  
+<!--
+  login page and pages with similar layout:
+  header, main, footer must have class "front"
+  
+  cart:
+  open-cart button moved from header to Cart block
+  when cart-open button is pressed, body must get class "cart-open" and Cart block must get additional class "open"
+-->
+  
+    
+<header>
+
+  <h1>Cellarix</h1>
+
+  <div class="steps four-steps"><nav>
+    <ul>
+      <li role="presentation" ng-class="{'active': $state.includes('main.registration.step1'), 'done' : validForms.data[1] }"><a ui-sref="main.registration.step1">
+        <strong>שלב 1</strong> <span>
+        פרטים אישיים
+      </span></a></li>
+      <li role="presentation" ng-class="{'disabled': !validForms.data[1], 'active': $state.includes('main.registration.step2'), 'done' : validForms.data[2] }"><a href="" ng-click="goToStep(2)">
+        <strong>שלב 2</strong> <span>
+        אבטחה
+      </span></a></li>
+      <li role="presentation" ng-class="{'disabled': !validForms.data[2], 'active': $state.includes('main.registration.step3'), 'done' : validForms.data[3] }"><a href="" ng-click="goToStep(3)">
+       <strong>שלב 3</strong> <span>
+        אימות
+      </span></a></li>
+      <li role="presentation" ng-class="{'disabled': !validForms.data[3], 'active': $state.includes('main.registration.step4'), 'done' : validForms.data[3] }"><a href="" ng-click="goToStep(4)">
+        <strong>שלב 4</strong> <span>
+        פרטי תשלום
+      </span></a></li>
+    </ul>
+  </nav></div>
+  
+  <a href="" class="back-button">חזור</a>
+
+</header>
+
+
+  <main class="guest-payments">
+    
+    <p class="security-message">התשלום מאובטח באמצעות SSL ועל פי תקן האבטחה PCI</p>
+    
+    <section class="step-2 wide">
+
+
+      
+      <div ng-form>
+
+        <div class="block closed">
+
+          <div class="block-head card">
+
+            <h4 class="description">
+                פרטי תשלום
+            </h4>
+            
+            <div class="col-wrap">              
+              <div class="sum shekel">550</div>              
+              <button class="block-expand-button" onclick="javascript:$(this).closest( '.block').toggleClass('closed').toggleClass('open');"></button>
+            </div>
+
+
+          </div>
+
+          <div class="block-content">
+
+            <div class="block-row visa">
+
+              <h5 class="description">
+                  פרטי תשלום
+                  <strong>5243</strong>
+              </h5>   
+              
+              <fieldset class="edit-sum">
+                <button class="minus">-</button>
+                <input type="number" value="550"><i class="shekel"></i>
+                <button class="plus">+</button>                 
+              </fieldset>
+   
+            </div>
+
+            <div class="block-row mstrcrd">
+
+              <h5 class="description">
+                  פרטי תשלום
+                  <strong>5243</strong>
+              </h5>                
+
+              <fieldset class="edit-sum">
+                <button class="minus">-</button>
+                <input type="number" value="550"><i class="shekel"></i>
+                <button class="plus">+</button>                 
+              </fieldset>  
+
+            </div>
+
+            <div class="block-row amexpr">
+
+              <h5 class="description">
+                  פרטי תשלום
+                  <strong>5243</strong>
+              </h5>                
+
+              <fieldset class="edit-sum">
+                <button class="minus">-</button>
+                <input type="number" value="550"><i class="shekel"></i>
+                <button class="plus">+</button>                 
+              </fieldset>  
+
+            </div>      
+
+
+          </div>
+
+        </div>
+
+
+
+
+
+        <div class="block closed">
+
+          <div class="block-head tag">
+            
+            <h4 class="description">
+                פרטי תשלום
+                <p>פרטי תשלום פרטי תשלום פרטי תשלום   פרטי תשלום 764/32 פרטי תשלום</p>
+            </h4>
+
+            <div class="col-wrap">              
+              <div class="sum shekel">550</div>              
+              <button class="block-expand-button" onclick="javascript:$(this).closest( '.block').toggleClass('closed').toggleClass('open');"></button>
+            </div>            
+
+          </div>
+
+          <div class="block-content">
+
+            <div class="block-row card">
+              
+              <h5 class="description">
+                  פרטי תשלום
+                  <strong>5243</strong>
+              </h5>                    
+
+              <fieldset class="edit-sum">
+                <button class="minus">-</button>
+                <input type="number" value="550"><i class="shekel"></i>
+                <button class="plus">+</button>                 
+              </fieldset>
+
+            </div>  
+
+
+          </div>
+
+        </div>
+
+
+
+        <div class="payment-summary">
+
+          <div class="summary-row total">
+            
+            <h4 class="description">פרטי תשלום</h4>
+            <div class="sum shekel">800</div>
+
+          </div>
+
+          <div class="summary-row">
+            
+            <h5 class="description">פרטיטי טי תשלוםh</h5>
+            <div class="sum shekel">800</div>
+
+          </div>  
+
+          <div class="summary-row">
+            
+            <h5 class="description">פרטי תשלוםh</h5>
+            <div class="sum shekel">800</div>
+
+          </div>    
+
+        </div>
+
+        
+        <fieldset class="form-button form-group">
+          <button type="button">make my day</button>
+        </fieldset>        
+        
+
+      </div>       
+      
+      
+      
+
+    </section>
+
+
+  </main>
+
+
+
+  <footer>
+
+   <img class="cellarix-logo" src="../../img/logo.png" alt="Cellarix">
+   <p>בכל שאלה, אנו פה חייגו 9100*, מכל טלפון סלולרי</p>
+   <a href="" class="call-button"></a>
+
+  </footer>
+
+  
+ 
+ <!--CART-->
+  <div class="cart">
+    <a href="javascript:$('.cart').toggleClass('open');$('body').toggleClass('cart-open');" class="basket-button"><span class="items-count">5</span></a>
+    
+    <div class="right-side">
+      
+      <div class="cart-head">
+        <div class="basket"><span class="items-count">99</span></div>
+        <h3>אנו פה חייגו</h3>        
+      </div>
+      
+      <a class="close-button" href="javascript:$('.cart').toggleClass('open');$('body').toggleClass('cart-open');"></a>    
+    </div>
+    
+    <div class="left-side">
+      
+      <div class="item-row">        
+        <div class="description"> אנו פה חייג <span class="price shekel">300</span></div>
+        <div class="quantity">2</div>        
+        <div class="sum shekel">300</div>      
+      </div>
+
+      <div class="item-row">        
+        <div class="description"> אנו פה חייג <span class="price shekel">300</span></div>
+        <div class="quantity">2</div>        
+        <div class="sum shekel">300</div>      
+      </div>
+      
+      <div class="item-row">        
+        <div class="description"> אנו פה חייג <span class="price shekel">300</span></div>
+        <div class="quantity">2</div>        
+        <div class="sum shekel">300</div>      
+      </div>      
+      
+      <div class="total">        
+        <div class="description">מספר</div>
+        <div class="sum shekel">800</div>      
+      </div>
+      
+    </div>
+
+  </div>
+    
+    
+</body>
+
+</html>
+

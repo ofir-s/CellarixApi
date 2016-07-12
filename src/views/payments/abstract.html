@@ -1,0 +1,27 @@
+<class-controller-directive element='body' classes='' />
+<class-controller-directive element='footer' classes='' />
+
+<header>
+  <h1>Cellarix</h1>
+    <div class="steps two-steps">
+        <nav>
+            <ul>
+                <li role="presentation" ng-class="{'active': $state.includes('main.payments.step1'), 'done' : sumIsFullyPaid.value }">
+                    <a  tabindex="0" ui-sref="main.payments.step1">
+                        <strong>שלב 1</strong> <span>אמצעי תשלום</span>
+                    </a>
+                </li>
+                <li role="presentation" ng-class="{'disabled': !sumIsFullyPaid.value, 'active': $state.includes('main.payments.step2'), 'done' : validForms.data[2] }">
+                    <a tabindex="0" href='' ng-click="goToSecondStep()">
+                        <strong>שלב 2</strong> <span>אישור</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<main class="payments">
+    <p class="security-message">התשלום מאובטח באמצעות SSL ועל פי תקן האבטחה PCI</p>
+    <div data-ui-view="step1" ng-show="$state.includes('main.payments.step1')"></div>
+    <div data-ui-view="step2" ng-show="$state.includes('main.payments.step2')"></div>
+</main>

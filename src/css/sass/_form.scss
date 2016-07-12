@@ -1,0 +1,432 @@
+// FORM
+
+
+// FIELDSET
+
+fieldset, .form-group {
+
+  position: relative;
+  margin-bottom: $global-padding / 2;
+  //margin-bottom: 0px;
+  //padding-top: $global-padding - 3px;
+  padding-top: $global-padding;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+
+  &.form-button {
+    margin-top: $global-padding;
+    padding-top: 0;
+  }
+
+
+  // labels except radio
+
+  &:not(.radios):not(.checkbox) {
+    
+    textarea ~ label,
+    input ~ label {
+      pointer-events: none;
+      position: absolute;
+      right: 0px;
+      margin-bottom: 0px;
+      @if ($nice-things) {
+        @include transition (all 0.4s ease-in-out);
+      }
+      white-space: nowrap;
+      
+//      @include media($super-small-screen) { 
+//          font-size: $font-size-base * 0.9;   
+//      }
+      
+    }
+    
+    textarea.input-lg ~ label,
+    input.input-lg ~ label {
+      font-size: $font-size-lg * 1.2;
+    }
+
+    textarea.ng-empty ~ label,
+    textarea.ng-pristine ~ label,
+    input.ng-empty ~ label,
+    input.ng-pristine ~ label {
+      top: 17px;
+      cursor: text;
+      span {
+        font-size: $font-size-base * 0.75;
+        line-height: $line-height-base;
+        display: inline-block;
+        top:-1px;
+        position: relative;
+        
+        @include media($super-small-screen) {
+          letter-spacing: -0.5px;
+        }
+      }
+    }
+    
+    textarea:focus ~ label,
+    textarea.ng-not-empty ~ label,
+    input:focus ~ label,
+    input.ng-not-empty ~ label {
+      font-size: $font-size-sm;
+      color: darken($gray-light,10%);
+      top: 0;
+      cursor: default;
+      span {
+        font-size: $font-size-sm;
+        line-height: inherit;
+        color: inherit;
+        display: inline;
+        margin: 0;
+        top:0;
+        vertical-align: inherit;
+      }
+    }
+
+  }
+
+  // asterisk
+
+  .asterisk {
+    @include no-text-select;
+    color: $brand-primary;
+    font-size: inherit;
+  }
+
+  input:focus ~ label .asterisk,
+  input.ng-not-empty ~ label .asterisk {
+    color: inherit;
+  }
+
+  input.ng-invalid:not(.ng-pristine) ~ label .asterisk,
+  input.ng-invalid.ng-touched ~ label .asterisk {
+      color: red;
+  }
+
+
+  // input
+  
+  textarea,
+  input {
+    border: 0;
+    border-bottom: 1px solid $gray-light;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    color: $gray-dark;
+    background-color: transparent !important;
+
+    &:focus {
+      //border-bottom: 1px solid $gray-light;
+      border-bottom: 1px solid $brand-primary;
+    }
+
+    &.input-lg {
+      font-size: $font-size-lg * 1.2;
+    }
+
+    &.ng-empty {
+      box-shadow: none;
+    }
+
+    &.ng-invalid:not(.ng-pristine),
+    &.ng-invalid.ng-touched {
+//        color: red;
+    }
+
+    // bottom border & animation
+    @if ($nice-things) {
+      @include slide-border ($brand-primary,1px);
+    }
+    &.ng-valid:not(.ng-empty) {
+      background-position: 0 !important;
+      border-bottom-color: $brand-primary;
+    }
+
+  }
+
+  // input icons
+  
+  input {
+    padding-left: 25px;
+  }
+    
+  textarea ~ i.fa,
+  input ~ i.fa {
+
+    @include position(absolute, 24px null null 0px);
+    margin: 0;
+    background-size: contain;
+
+    &:before {
+      display: none;
+    }
+
+    &.fa-info-circle {
+      //@extend .icn_quest-gr;
+      @extend .icn_quest-grn;
+      @include size(15px, get-icn-height(icn_quest,15px));
+    }
+    &.fa-credit-card {
+      @extend .icn_card1-gr;
+      @include size(20px, get-icn-height(icn_card1,20px));
+    }
+    .fa-question-circle {
+
+    }
+    &.fa-pencil {
+      @extend .icn_pencil-gr-d;
+      @include size(15px, get-icn-height(icn_pencil,15px));
+    }
+    &.cc-visa {
+      @extend .icn_visa-gr;
+      @include size(20px, get-icn-height(icn_visa,20px));      
+    }
+    &.cc-mastercard {
+      @extend .icn_mstrcrd-gr;
+      @include size(20px, get-icn-height(icn_mstrcrd,20px));      
+    }
+    &.cc-amex {
+      @extend .icn_amexpr-gr;
+      @include size(20px, get-icn-height(icn_amexpr,20px));      
+    }
+
+  }
+
+
+  // messages & errors
+
+  .messages {
+    font-size: $font-size-sm;
+    min-height: 20px;
+    margin-top: 2px;
+    //margin-bottom: $global-padding / 2;
+  }
+
+  .error-messages {
+    color: red;
+    font-weight: 600;
+    //text-align: right;
+    span {
+      display: block;
+    }
+  }
+
+  input.ng-invalid:not(.ng-pristine) ~ .messages .default-message,
+  input.ng-invalid.ng-touched ~ .messages .default-message {
+    display: none;
+  }
+
+
+  // select input
+
+  select {
+    @if ($nice-things) {
+      @include transition (all 0.2s ease-in-out);
+    }
+    color: $gray-dark;
+    @include pads($left: 1.75rem, $right: 0.75rem);
+    border: 0px;
+    border-bottom: 1px solid $gray-light;
+    outline: 0px;
+    @extend .icn_tr_d-gr-l;
+    background-size: 7px get-icn-height(icn_tr_d,7px);
+    background-position: 3px center;
+
+    &:focus {
+      border-bottom: 1px solid $brand-primary;
+      @extend .icn_tr_d-grn;
+      option {
+        color: $gray-dark;
+      }
+    }
+
+  }
+
+
+  // inline form inputs
+
+  &.date, &.card {
+    .inline-form-item {
+      width: calculate-col-width(3,15px);
+      margin-left: 15px;
+    }
+  }
+
+  &.card {
+    .inline-form-item {
+      padding-top: $global-padding;
+    }
+  }
+
+  .inline-form-items {
+    width: 100%;
+    @include clearfix();
+  }
+
+  .inline-form-item {
+    display: block;
+    float: right;
+    position: relative;
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+
+  .inline-form-items + label {
+    position: absolute;
+    display: block;
+    right: 0px;
+    top: 0;
+    font-size: 1.2 * $font-size-sm;
+    color: darken($gray-light,10%);
+    cursor: default;
+  }
+
+  @include media($small-screen) {
+    .inline-form-item > label {
+      font-size: 1.2 * $font-size-sm;
+    }      
+  }
+  
+  
+    .cc-number {
+        direction: ltr;
+        text-align: right;
+    }
+
+// end inline form inputs
+
+
+  &.password {
+
+    input {
+      padding-left: 25px;
+
+      & ~ .form-control-feedback {
+        display: none;
+        @include position(absolute, 18px null null 20px);
+        margin: 0;
+        opacity: 0.4;
+        @if ($nice-things) {
+          @include transition (all 0.2s ease-in-out);
+        }
+      }
+
+      &.ng-empty ~ .form-control-feedback {
+        opacity: 0;
+      }
+
+    }
+
+  }
+
+  // checkboxes
+
+  &.checkbox {
+
+    padding-top: 0;
+
+    input[type=checkbox] {
+      @include nice-checkbox($brand-primary, 15px, 1px, darken($gray-light,10%));
+    }
+
+  }
+
+
+} // end fieldset
+
+
+// show/hide fieldset (promotion)
+
+a.fieldset-toggle {
+  display: block;
+  padding-right: 20px;  
+  background-position: right center;
+  outline: 0;
+
+  &.off {
+    @extend .icn_tag1-grn;
+    background-size: 13px get-icn-height(icn_quest,13px);
+  }
+
+  &.on {
+    @extend .icn_x-grn;
+    background-size: 10px get-icn-height(icn_x,10px);    
+  }
+
+}
+
+.fieldset-toggle-target {
+
+  @if ($nice-things) {
+    @include transition (all 0.4s ease-in-out);
+  }
+
+  overflow: hidden;
+
+  &.on {
+    height: 80px;
+    padding-top: 17px;
+    margin-bottom: $global-padding * -1;
+  }
+
+  &.off {
+    height: 1px;
+    padding-top: 0;
+  }
+
+}
+
+
+
+// GENDER SELECTOR
+
+.select-sex {
+
+  @include clearfix;
+
+  .radio {
+    float: right;
+    margin-left: $global-padding * 1.5;
+  }
+
+  input[type='radio'] {
+    display: none;
+  }
+
+  input[type='radio'] ~ label {
+    background-size: 30px get-icn-height(icn_usr_fm,30px);
+    background-position: center top;
+    padding-top: 35px;
+    cursor: pointer;
+    color: $gray;
+    margin-bottom: 0px;
+    outline: 0;
+  }
+
+  input[type='radio']:checked ~ label {
+    color: $gray-dark;
+  }
+
+  .radio.sex-m input[type='radio'] ~ label {
+    @extend .icn_usr_m-gr-l;
+  }
+  .radio.sex-f input[type='radio'] ~ label {
+    @extend .icn_usr_fm-gr-l;
+  }
+
+  .radio.sex-m input[type='radio']:checked ~ label {
+    @extend .icn_usr_m-grn;
+  }
+
+  .radio.sex-f input[type='radio']:checked ~ label {
+    @extend .icn_usr_fm-grn;
+  }
+
+  
+}
+

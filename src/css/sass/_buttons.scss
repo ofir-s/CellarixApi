@@ -1,0 +1,231 @@
+$cart-call-left-position: -23px;
+$cart-call-left-position-mobile: -30px;
+
+// MAIN BUTTON
+
+.clrx-button, button:not(.plus):not(.minus) {
+
+  @include button-normalize();
+
+  display: block;
+  margin-right: auto;
+  background-color: $brand-primary; // #8bc646
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4), inset 0 0 8px 1px rgba(255, 255, 255, 0.55);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+  border: 1px solid #89c148;
+  border-radius: 20px;
+  color: $gray-dark;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 100%;
+  padding: 10px 30px 10px 30px;
+  position: relative;
+
+  &:active, &:focus, &:hover {
+    color: $gray-dark;
+  }
+  
+  &:active, &:disabled {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  &:active {
+    background-color: lighten($gray,15%);
+    //border: 1px solid $gray; // #6c6c6c;
+    border: 1px solid rgb(120,120,120);
+  }
+
+  &:disabled, &:disabled:active {
+    background-color: $gray-light;
+    border: 1px solid darken($gray-light,5%);
+    color: $gray;
+    text-shadow: none;
+    //-webkit-text-fill-color: $gray-light;
+    //-webkit-text-stroke-width: 1px;
+    //-webkit-text-stroke-color: rgba(0,0,0,0.2);
+  }
+  
+  .fa-spinner {
+    display: inline-block;
+    position: absolute;
+    right: 8px;
+    top: 10px;
+    //opacity: 0.8;
+    // remove font-awesome:
+    @include size(16px);
+    &:before { display:none; }
+    // add nice spinner
+    @include spin-zoomer-pulser(16px, $gray);
+  }  
+
+}
+
+// BLOCK (accordiom) EXPAND BUTTON 
+
+button.block-expand-button {
+  
+  padding: 0 !important;
+  @include size($global-padding * 2);
+  border-radius: 50%;
+  
+  @extend .icn_ar_l-gr-dd;
+  background-size: 8px get-icn-height(icn_ar_l,8px);
+  background-position: 43% 50%;
+  
+  transform: rotate(0deg); 
+  
+  @if $nice-things {
+    @include transition (transform 0.4s ease-in-out);
+  }
+      
+  @at-root {
+    
+    .open .block-expand-button,
+    .block-expand-button:active {
+      transform: rotate(-90deg);      
+    }
+    
+  }
+  
+  @include media("<600px") {        
+    @include size($global-padding * 1.35);
+    background-size: 5px get-icn-height(icn_ar_l,5px);        
+  }    
+  @include media($small-screen) {        
+    @include size($global-padding * 1.2);
+     
+  }     
+
+}
+
+
+//BACK BUTTON
+
+.back-button {
+
+  @extend .clrx-button;
+  @extend .icn_ar_r-wht;
+  @extend %link-no-text-dec;
+  background-size: 14px get-icn-height(icn_ar_r,14px);
+  background-position: right 5px center;
+  
+  @include corner-radius($top-right: 0px, $bottom-right: 0px);
+  font-size: 13px;
+  padding: 12px 27px 12px 12px;
+  @include position(absolute, 10px -2px null null);
+  z-index: 990;
+
+  @include media($is-mobile) {
+    top: 16px;
+  }
+
+}
+.success .back-button {
+    display: none;
+}
+
+
+// plus-minus buttons 
+
+button.plus, button.minus {
+  @include button-normalize();
+  @include size(14px);  
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: white; 
+  @extend %bg-pos-center-contain;
+  @extend %hide-text;
+}
+button.minus {
+  @extend .icn_stop-grn;
+}
+button.plus {
+  @extend .icn_plus-grn;
+}
+
+
+// CART BUTTON
+
+.basket-button {
+
+  display: block;
+  @include size(90px,140px);
+  @include position(absolute, 40px -67px null null);
+  @include  bg-image("#{$base-url}svg/cart_button_off_green.svg",left top);
+//  z-index: 985;
+
+  &:active {
+    background-image: url("#{$base-url}svg/cart_button_on_gray_dark.svg");
+  }
+
+  @include media($is-mobile) {
+    right: -50px;
+    top: -25px;
+    @include size(80px,130px);
+  }
+
+  .items-count {
+
+    @include position(absolute, 55px 15px null null);
+
+    @include media($is-mobile) {
+      top: 46px;
+      right: 17px;
+    }
+
+  }
+
+}
+.success .basket-button {
+    display: none;
+}
+
+
+//CALL BUTTON
+
+.call-me,
+.call-button {
+  display: block;
+  //@include size(90px,140px);
+  @include size(80px,130px);
+  @include position(absolute, null null -27px $cart-call-left-position-mobile);
+  z-index: 980;
+  
+  @if ($call-button-color == green) {
+
+    @include  bg-image("#{$base-url}svg/phone_button_off_green.svg",left top);
+    &:active {
+      background-image: url("#{$base-url}svg/phone_button_on_gray_dark.svg");
+    }        
+    
+  } @else if ($call-button-color == gray) {
+    
+    @include  bg-image("#{$base-url}svg/phone_button_off_gray_dark.svg",left top);
+    &:active {
+      background-image: url("#{$base-url}svg/phone_button_on_gray_lighter.svg");
+    }        
+    
+  }
+  
+    @include media($is-desktop) {
+      display: none;
+    }
+}
+
+
+// Cart Close Button 
+
+.close-button {
+  @include size(11px);
+  @include position(absolute,$global-padding $global-padding null null);
+  @extend .icn_x-wht;
+  @extend %bg-pos-center-contain;        
+  z-index: 1200;
+  
+  &:active {
+    @extend .icn_x-gr-l;
+  }
+}
+

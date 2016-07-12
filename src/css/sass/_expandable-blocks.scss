@@ -1,0 +1,447 @@
+// EXPANDABLE BLOCKS (accordion)
+
+
+.block {  
+  
+  .shekel:before {
+    font-size: 80%;
+    @include media("<600px") {  
+      margin-right:2px;
+    }
+  }
+  
+  
+  button, input,
+  .block-expand-button, .sum {
+    display: inline-block;
+  }  
+  
+  padding: $global-padding / 2;
+  background-color: white;
+  @extend .shadow-box;  
+  overflow: hidden;  
+  margin-bottom: $global-padding;
+
+  width: 100%;  
+  
+  @include media($small-screen) {
+    background-color: transparent;
+    padding: $global-padding / 4;
+    //box-shadow: none !important;
+    box-shadow: 0 2px 10px 0px rgba(0,0,0,0.15) !important;
+    margin-top: $global-padding / 2;
+  }
+  
+  
+  .block-head, .block-row {
+    
+    @include clearfix;
+    @include margins($left:0,$right:0);
+    width: 100%;
+    
+    .description {            
+      width: 60%;
+      float: right;      
+      padding: 0;
+      padding-left: $global-padding;
+      text-align: right;
+      margin-bottom: 0;
+      font-weight: 400;
+      color: $gray-dark;
+      line-height: 1;
+      @include media($is-mobile) {        
+        width: 50%;
+        padding-left: $global-padding / 2;
+      }  
+      
+    }
+
+    &:before {      
+      @include pseudo;
+      @include size(35px);
+      position: absolute;
+      background-position: center top; 
+    }     
+    
+//    @include media("<600px") {      
+//      .shekel:before {        
+//        margin-right:1px;
+//      }
+//    }   
+    
+  }
+  
+  .block-content {
+    
+    @include pads($left: $global-padding, $right: $global-padding);        
+    @include borders($left:$brand-primary,$right:$brand-primary,$bottom:$brand-primary);       
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    @if $nice-things {
+     // @include transition(max-height 1s $easeInOutQuart, margin 0.2s);
+    }
+
+    @include media($smallish-screen) {
+      @include pads($left:$global-padding/2,$right:$global-padding/2);
+    }
+    
+  }
+  
+  .block-head {
+    
+    @include pads(
+      $top:  $global-padding * 1.5,
+      $right: $global-padding * 1.5 * 2 + 35px,
+      $bottom: $global-padding * 1.5 - 2px,
+      $left: $global-padding * 1.5
+    );
+
+    border: 1px solid $brand-primary;    
+    position: relative;    
+    
+    .col-wrap {         
+      width: 40%;
+      float: left;      
+      padding: 0;
+      text-align: left;
+      font-weight: 600;
+      font-size: $font-size-lg;
+      line-height: 1;
+      position: relative;
+      padding-left: $global-padding * 3;        
+      @include media($is-mobile) {        
+        width: 50%;     
+      }    
+      @include media("<600px") {             
+        font-size: $font-size-lg * 0.9;
+        padding-left: $global-padding * 1.8;  
+        .shekel:before {
+          //font-size: $font-size-base;
+        }
+      }   
+      @include media($small-screen) {        
+        font-size: $font-size-base;
+        letter-spacing: -0.5px;
+        padding-left: $global-padding * 1.6; 
+        .shekel:before {
+          //font-size: $font-size-sm;
+        }
+        @include truncateText();
+      }          
+    }    
+    
+    .block-expand-button {
+      @include position(absolute, -10px null null -10px);
+      @include media("<600px") {                
+        top: -3px;
+        left: 0;
+      }          
+      @include media("<600px") {                
+        top: -4px;
+      }        
+      @include media($smallish-screen) {                
+        top: -4px;
+        left: -3px;
+      }  
+      @include media($small-screen) {                
+        top: -4px;
+        left: -3px;
+      }  
+    }            
+    
+    .description {           
+      p {
+        //font-size: $font-size-base * 0.9;
+        font-size: $font-size-base;
+        margin-top: $global-padding * 0.5;
+      }
+      @include media($smallish-screen) {        
+        font-size: $font-size-lg * 0.9;
+        p { margin-top: $global-padding / 2; }
+      }        
+      @include media($small-screen) {        
+        font-size: $font-size-base;  
+        letter-spacing: -0.5px;
+        @include truncateText();
+        p { font-size: $font-size-base * 0.9; }
+      }        
+    }    
+
+    &:before {
+      top: $global-padding * 1.5;  
+      right: $global-padding * 1.5;
+      @include fix-weird-webkit-shit();
+    }    
+    
+    &.card:before {      
+      @extend .icn_card1-grn;
+      background-size: 30px get-icn-height(icn_card1,30px);      
+    }
+    
+    &.tag:before {      
+      @extend .icn_tag1-grn;
+      background-size: 30px get-icn-height(icn_tag1,30px);      
+      top: $global-padding * 1.5 - 4px;
+    }
+    
+    &.wallet:before {
+      @extend .icn_wallet-grn;
+      background-size: 30px get-icn-height(icn_wallet,30px);   
+      top: $global-padding * 1.5 - 6px;
+    }
+
+    @include media($is-mobile) {        
+      &:before {
+        top: $global-padding * 1.2;  
+        right: $global-padding;        
+      }
+      @include pads(
+      $top:  $global-padding * 1.2,
+      $right: $global-padding * 2 + 35px,
+      $bottom: $global-padding * 1.2 - 2px
+      //,$left: $global-padding
+      );      
+    }      
+    
+    @include media("<600px") {        
+      &:before {
+        display: none;
+      }
+      @include pads(
+        $top:  $global-padding/2 + $global-padding/4,
+        $right: $global-padding,
+        $bottom: $global-padding/2 + $global-padding/4 - 2px,
+        $left: $global-padding / 2 + 5px
+      );      
+    }  
+    @include media($smallish-screen) {        
+      @include pads(      
+        $right: $global-padding / 2,
+        $left: $global-padding / 2
+      );      
+    }             
+    
+ 
+        
+  }
+  
+  .block-row {
+    
+    @include pads(
+      $top:  $global-padding,
+      $right: $global-padding / 2,
+      $bottom: $global-padding - 4px,
+      $left: $global-padding / 2
+    );
+
+    position: relative;    
+    border-bottom: 1px solid $gray-light;    
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .description {
+      padding-right: $global-padding * 1.5 + 35px;
+      font-size: $font-size-base;
+      color: $gray;
+      line-height: 1.2;
+    
+      strong {
+        font-weight: 700;
+      }
+      @include media($smallish-screen) {
+        font-size: $font-size-base * 0.9;
+      }      
+    
+      p {
+        font-size: $font-size-base * 0.9;
+        margin-top: $global-padding / 2;
+      }
+//      @include media($smallish-screen) {        
+//        p { margin-top: $global-padding / 2; }
+//      }        
+      @include media($small-screen) {        
+        p { font-size: $font-size-base * 0.9; }
+      }   
+      
+    }
+    
+    .edit-sum {
+      width: 35%;     
+      float: left;      
+      text-align: left;
+      white-space: nowrap;
+      padding: 0;
+      line-height: 1;
+      margin-top: -3px;
+
+      input {
+        width: 60px;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        text-align: left;
+        direction: ltr;
+        
+        @include transition (all 0.35s ease-in-out);
+        
+        box-shadow: none;
+        
+        &.ng-empty:not(:focus) {
+          //border-bottom: 1px solid $brand-primary;
+          box-shadow: inset 0 -1px 0 0 rgb(193,193,193);
+        }
+        
+      }       
+
+      i.shekel {
+        font-style: normal;
+        display: inline-block;
+        vertical-align: middle;      
+      }             
+      
+    } // edit-sum
+    
+    .plus, .minus, input {
+      vertical-align: middle;
+    }
+    .plus {
+      margin-right: 3px;
+    }
+    .minus {
+      margin-left: 3px;
+    }
+
+    
+    &:before {
+      top: $global-padding;  
+      right: $global-padding / 2;        
+    }    
+    
+    &.visa:before {      
+      @extend .icn_visa-gr;
+      background-size: 20px get-icn-height(icn_visa,20px);      
+    } 
+    
+    &.mstrcrd:before {      
+      @extend .icn_mstrcrd-gr;
+      background-size: 20px get-icn-height(icn_mstrcrd,20px);      
+    }       
+    
+    &.amexpr:before {      
+      @extend .icn_amexpr-gr;
+      background-size: 20px get-icn-height(icn_amexpr,20px);      
+    }
+    
+    &.card:before {
+      @extend .icn_card2-gr;
+      background-size: 20px get-icn-height(icn_card2,20px);       
+    }
+
+
+    @include media($is-mobile) {
+      @include pads($left:0,$right:0);
+      &:before {
+        right: 0; 
+      }      
+      .description {
+        padding-right: $global-padding + 35px;
+      }      
+    }
+
+    @include media("<600px") {
+      @include pads($left:0,$right:0);
+      &:before {
+        display: none;
+      }      
+      .description {
+        padding-right: 0;
+      }      
+    }
+    
+    @include media($smallish-screen) {
+      .edit-sum { width: 40%; }
+      .description { width: 55%; }
+    }
+
+    @include media($small-screen) {
+      .edit-sum { width: 35%; }
+      .description { 
+        width: 60%; 
+        letter-spacing: -0.5px;
+      }      
+      input { font-size: $font-size-base * 0.9; }
+      i.shekel { 
+        //font-size: $font-size-base * 0.8;
+      }
+      .plus,.minus { display: none; }
+    } 
+    
+//    @include media($small-screen) {
+//      .edit-sum,.description {
+//        float: none;
+//        display: block;
+//        width: 100%;
+//      }
+//    }
+    
+    
+  }  
+    
+  &.closed {
+    
+    .block-head {
+      //margin-bottom: -1px;
+    }
+    
+    .block-content {
+      max-height: 0;
+      margin-top: -1px;
+       @include transition(max-height 0.5s $easeInOutQuart);
+    }
+    
+  }
+  
+  &.open {
+    
+    .block-content {
+      max-height: 2000px;
+       @include transition(max-height 1s $easeInOutQuart);
+    }
+    
+  }
+  
+  // coupon expired
+  .coupon-expired {
+    
+    margin: 4px 0 !important;
+    padding: 5px 12px;
+    //border: 1px solid #EE1C25;
+    border-radius: 20px;
+    float: left;
+    background-color: #fbebeb;      
+    color: #EE1C25;  
+    font-size: $font-size-base * 0.9;
+    line-height: 1;
+    white-space: nowrap;    
+    display: none;
+
+    @include media($small-screen) {
+      font-size: $font-size-sm;
+    }
+    @include media($super-small-screen) {
+      font-size: $font-size-sm * 0.9;
+    }    
+  }
+  .edit-sum.expired {
+    display: none;
+  }
+  .edit-sum.expired + .coupon-expired {
+    display: block;    
+  }
+  
+} // block
+
+

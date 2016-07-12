@@ -1,0 +1,48 @@
+// Custom Overrides
+
+$swt-btnBlue: $brand-primary;
+$swt-btnGray: $gray;
+$swt-red: $brand-primary;
+$swt-orange: $brand-primary;
+$swt-blue: $brand-primary;
+$swt-green: $brand-primary;
+$swt-font: $font-family-serif;
+
+$swt-header-color: $gray-dark;
+$swt-text-color: $gray-dark;
+$swt-button-text-color: $gray-dark;
+
+$swt-font-size-p: $font-size-base;
+$swt-font-size-h2: $font-size-lg;
+
+$swt-padding: $global-padding * 1.5;
+$swt-headings-paddining: #{$global-padding / 2} 0;
+$swt-buttons-padding: #{$global-padding / 2} #{$global-padding / 2} 0 #{$global-padding / 2};
+
+// button restyling
+
+.sweet-alert[data-has-cancel-button] .sa-button-container button,
+.sa-button-container button,
+.sa-button-container button.cancel,
+.sa-confirm-button-container button.confirm {
+  background-color: $brand-primary !important;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.4), inset 0 0 8px 1px rgba(255, 255, 255, 0.55) !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 1) !important;
+  border: 1px solid #89c148 !important;
+  border-radius: 20px !important;
+  color: $gray-dark !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  line-height: 100% !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  @include no-text-select;
+  padding: 10px 30px 10px 30px !important;
+  cursor: hand !important;
+
+  &:active {
+    background-color: lighten($gray,15%) !important;
+    border: 1px solid $gray !important;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.5) !important;
+  }
+}

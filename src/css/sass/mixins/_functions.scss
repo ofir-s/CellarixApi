@@ -1,0 +1,215 @@
+// vars
+@charset 'UTF-8';
+
+
+// COLORS HELPERS
+@function black($opacity:1) {
+  @return #{rgba(0,0,0,$opacity)};
+}
+@function white($opacity:1) {
+  @return #{rgba(255,255,255,$opacity)};
+}
+
+
+@function calculate-col-width($items-number:3,$padding-width:15px) {
+  @return calc(#{100% / $items-number} - #{($padding-width * ($items-number - 1)) / $items-number});
+}
+
+
+
+
+// Replace `$search` with `$replace` in `$string`
+// @author Hugo Giraudel
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+  @return $string;
+}
+
+// URL Encoder
+@function url-encode($string) {
+  $map: (
+   "%": "%25",
+   "<": "%3C",
+   ">": "%3E",
+   " ": "%20",
+   "!": "%21",
+   "*": "%2A",
+   "'": "%27",
+   '"': "%22",
+   "(": "%28",
+   ")": "%29",
+   ";": "%3B",
+   ":": "%3A",
+   "@": "%40",
+   "&": "%26",
+   "=": "%3D",
+   "+": "%2B",
+   "$": "%24",
+   ",": "%2C",
+   "/": "%2F",
+   "?": "%3F",
+   "#": "%23",
+   "[": "%5B",
+   "]": "%5D"
+   );
+  $new: $string;
+  @each $search, $replace in $map {
+    $new: str-replace($new, $search, $replace);
+  }
+  @return $new;
+}
+
+// URL-encode string of up to 4000 chars
+// str-replace chokes on long strings, so we split strigs > 1700 chars in 3
+// this function is not intended for strings > 4000 chars
+@function url-encode-long-string($string) {
+    @if str-length($string) > 4000 {
+        @warn "String to encode too long (>4000 characters)";
+        @return null;
+    }
+    @else if str-length($string) >= 1700 {
+        $string-part1: str-slice($string, 0, str-length($string)/3);
+        $string-part2: str-slice($string, str-length($string)/3+1, str-length($string)/3*2);
+        $string-part3: str-slice($string, str-length($string)/3*2+1);
+        @return url-encode($string-part1) + url-encode($string-part2) + url-encode($string-part3);
+    } @else if str-length($string) < 1700 {
+        @return url-encode($string);
+    }
+}
+
+
+/// Map deep get
+/// @author Hugo Giraudel
+/// @access public
+/// @param {Map} $map - Map
+/// @param {Arglist} $keys - Key chain
+/// @return {*} - Desired value
+// example:  $m-breakpoint: map-deep-get($o-grid-default-config, "layouts", "M");
+@function map-deep-get($map, $keys...) {
+    @each $key in $keys {
+        $map: map-get($map, $key);
+    }
+    @return $map;
+}
+
+/// Deep set function to set a value in nested maps
+/// @author Hugo Giraudel
+/// @access public
+/// @param {Map} $map - Map
+/// @param {List} $keys -  Key chaine
+/// @param {*} $value - Value to assign
+/// @return {Map}
+// example:  $o-grid-default-config: map-deep-set($o-grid-default-config, "layouts" "M", 650px);
+@function map-deep-set($map, $keys, $value) {
+  $maps: ($map,);
+  $result: null;
+
+  // If the last key is a map already
+  // Warn the user we will be overriding it with $value
+  @if type-of(nth($keys, -1)) == "map" {
+    @warn "The last key you specified is a map; it will be overrided with `#{$value}`.";
+  }
+
+  // If $keys is a single key
+  // Just merge and return
+  @if length($keys) == 1 {
+    @return map-merge($map, ($keys: $value));
+  }
+
+  // Loop from the first to the second to last key from $keys
+  // Store the associated map to this key in the $maps list
+  // If the key doesn't exist, throw an error
+  @for $i from 1 through length($keys) - 1 {
+    $current-key: nth($keys, $i);
+    $current-map: nth($maps, -1);
+    $current-get: map-get($current-map, $current-key);
+    @if $current-get == null {
+      @error "Key `#{$key}` doesn't exist at current level in map.";
+    }
+    $maps: append($maps, $current-get);
+  }
+
+  // Loop from the last map to the first one
+  // Merge it with the previous one
+  @for $i from length($maps) through 1 {
+    $current-map: nth($maps, $i);
+    $current-key: nth($keys, $i);
+    $current-val: if($i == length($maps), $value, $result);
+    $result: map-merge($current-map, ($current-key: $current-val));
+  }
+
+  // Return result
+  @return $result;
+}
+
+
+// FUNCTIONS FOR SVG ICONS
+
+@function get-icn($key) {
+  @if map-has-key($icons-map, $key) {
+    //@return map-get($icons-map, $key);
+    @return map-deep-get($icons-map, $key, code);
+  }
+  @warn "Unknown `#{$key}` in $icons-map";
+  @return null;
+}
+
+@function get-icn-ratio($key) {
+  //@if map-has-key($icons-ratios-map, $key) {
+  @if map-has-key($icons-map, $key) {
+    //@return map-get($icons-ratios-map, $key);
+    @return map-deep-get($icons-map, $key, ratio);
+  }
+  @warn "Unknown `#{$key}` in $icons-ratios-map";
+  @return null;
+}
+
+// add fill color to SVG
+@function fill-svg($string, $color) {
+  $search: "fillColor";
+  @return str-replace($string, $search, $color);
+}
+
+// main SVG build function, returns URL-encoded "url..." string with SVG of given color
+@function build-svg-icon($icon,$color) {
+    @return url('data:image/svg+xml;charset=utf8,#{url-encode-long-string(fill-svg(get-icn($icon),$color))}');
+}
+
+// return height of icon for given width
+@function get-icn-height($icon,$width) {
+    @return ceil($width / get-icn-ratio($icon));
+}
+
+// return width of icon for given height
+@function get-icn-width($icon,$height) {
+    @return ceil($height * get-icn-ratio($icon));
+}
+
+// ICON CLASSES GENERATOR MIXINS
+
+// generate single icon class with given color code (color translates according to $colors-map)
+@mixin make-icon-class($icn-name,$color-affix) {
+    .#{$icn-name}-#{$color-affix} {
+        background-image: build-svg-icon($icn-name, map-get($colors-map, $color-affix));
+        background-repeat: no-repeat;
+//        background-size: contain;
+//        background-position: center;
+    }
+}
+
+// generate all icon classes for all icons, according to settings in $icons-map
+@mixin make-icon-classes($map-name) {
+    @each $icn-name, $icn-object in $map-name {
+      @if map-get($icn-object, use) {
+        @each $color-affix in map-get($icn-object, colors) {
+          @include make-icon-class($icn-name,$color-affix)
+        }
+      }
+    }
+}
+
+
+

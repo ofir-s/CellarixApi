@@ -1,0 +1,11 @@
+<fieldset class="form-group">
+    <input id="cellphoneNumber" type="tel" tabindex="{{tabIndex}}"  limit-to='10' class="form-control" ng-class="{ 'input-lg' : isLarge }" ng-required="true" ng-pattern="/^(05)[0-9]( |-)?\d{7}$/" name="cellphoneNumber" ng-model="cellphoneField" numbers-only ng-blur="validatePhoneNumber()">
+    <label for="cellphoneNumber"><i class="asterisk">*</i> מספר סלולרי </label>
+    <div class="messages">
+        <div class="error-messages" ng-messages="formName.cellphoneNumber.$error" ng-show="formName.cellphoneNumber.$touched">
+            <span ng-message="pattern">המספר הסלולרי שהוזן אינו תקין. יש להזין מספר בין 10 ספרות בפורמט 05xxxxxxxx</span>
+            <span ng-message="required">שדה חובה</span>
+            <span ng-message="parse">שדה חובה</span>
+        </div>
+    </div>
+</fieldset>

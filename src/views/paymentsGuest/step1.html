@@ -1,0 +1,23 @@
+<section class="step-1">
+    <h4>תשלום בכרטיס אשראי</h4>
+    <p> עדיין לא מאוחר, <a tabindex="0" ui-sref="main.registration.step1({userData: guestPayment.createAccountGuestData, creditCardData: guestPayment.addCreditCardData})">רוצה לנסות אותנו?</a>
+    </p>
+    <div ng-form name="guestPaymentFormStepOne">
+        <fieldset ng-disabled="guestPaymentRequestInProgress || passedSteps.data[1]">
+            <!--first name-->
+            <first-name-field-directive first-name-field="guestPayment.createAccountGuestData.firstName" form-name="guestPaymentFormStepOne" tab-index="1" />
+            <!--second name-->
+            <last-name-field-directive last-name-field="guestPayment.createAccountGuestData.lastName" form-name="guestPaymentFormStepOne" tab-index="2" />
+            <!--e-mail-->
+            <email-field-directive form-name="guestPaymentFormStepOne" email-field="guestPayment.createAccountGuestData.email" tab-index="3" />
+            <!--cell phone number-->
+            <cellphone-field-directive form-name="guestPaymentFormStepOne" cellphone-field="guestPayment.createAccountGuestData.cellphoneNumber" tab-index="4" is-large="false" />
+            <tz-field-directive form-name="guestPaymentFormStepOne" id-field="guestPayment.createAccountGuestData.idNumber" tab-index='5' />
+            <!--button-->
+            <fieldset class="form-button form-group">
+                <cellarix-errors-directive />
+                <button enable-kb-click tabindex="6" type="button" ng-disabled="guestPaymentFormStepOne.$invalid || guestPaymentRequestInProgress || passedSteps.data[1]" ng-click="createAccountGuest(guestPayment.createAccountGuestData)"><i ng-show="guestPaymentRequestInProgress" class="fa fa-spinner fa-spin fa-fw"></i>עוד אחד ודי</button>
+            </fieldset>
+        </fieldset>
+    </div>
+</section>

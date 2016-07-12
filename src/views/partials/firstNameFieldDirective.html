@@ -1,0 +1,10 @@
+<fieldset class="form-group">
+    <input id="firstName" type="text" ng-model="firstNameField" limit-to ng-maxlength="55" class="form-control" name="firstName" tabindex="{{tabIndex}}" ng-required="true">
+    <label for="firstName"><i class="asterisk">*</i> שם פרטי</label>
+    <div class="messages">
+        <div class="error-messages" ng-messages="formName.firstName.$error" ng-show="formName.firstName.$touched">
+            <span ng-message="required">שדה חובה</span>
+            <span ng-message="maxlength">לא ניתן להכניס יותר מ55 תווים</span>
+        </div>
+    </div>
+</fieldset>
